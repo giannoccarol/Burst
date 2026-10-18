@@ -44,7 +44,10 @@ const Game = {
     await nextFrame();
     makeGunMaterials();
     R.setupSky();
-    this.loadMap(builtinMap(store.get('map', 'borgo')) ? store.get('map', 'borgo') : 'borgo');
+    const first = builtinMap(store.get('map', 'borgo')) ? store.get('map', 'borgo') : 'borgo';
+    await MapProps.preload(first, 3000);
+    this.loadMap(first);
+    this.upgradeMapProps(30000);
     HUD.loading('Ultimi ritocchi…', 0.8);
     await nextFrame();
     FX.init(R.scene);
@@ -117,9 +120,16 @@ const Game = {
     for (const b of this.bots) b.mover.world = this.world;
     Nav.built = false;
   },
+  // rebuild a built-in map once the GLB props it drew procedurally have arrived (never during a match)
+  async upgradeMapProps(ms) {
+    const id = this.mapId;
+    if (!builtinMap(id)) return;
+    await MapProps.preload(id, ms);
+    if (this.mapId === id && MapProps.upgradable() && this.state !== 'playing' && !this.editor) this.loadMap(id);
+  },
   async switchMap(id) {
     if (id === this.mapId) return true;
-    if (builtinMap(id)) { this.loadMap(id); return true; }
+    if (builtinMap(id)) { await MapProps.preload(id, 5000); this.loadMap(id); return true; }
     const def = id.startsWith('local:') ? Editor.localDef(id) : await Editor.fetchMap(id);
     if (!def) { HUD.toast('Mappa non disponibile: torno al Borgo'); if (this.mapId !== 'borgo') this.loadMap('borgo'); return false; }
     this.loadMap(id, def);
@@ -197,6 +207,7 @@ const Game = {
     HUD.connecting(true, offline ? 'Allenamento' : 'Entro nella stanza…');
     if (this.pendingMap && this.pendingMap !== this.mapId) await this.switchMap(this.pendingMap);
     this.pendingMap = null;
+    await this.upgradeMapProps(4000);
     let how = 'offline';
     if (!offline) how = await Net.join(roomName || 'borgo'); else Net.leave();
     this.joinT = performance.now();
@@ -251,7 +262,7 @@ const Game = {
     const t0 = performance.now(), mapAt = this.mapId;
     try {
       const gunIds = WEAPON_IDS.filter((id) => GunModels.filesFor(id).length);
-      const files = [...new Set([...Object.values(SOLDIERS).map((s) => s.file), ...gunIds.flatMap((id) => GunModels.filesFor(id))])];
+      const files = [...new Set([...Object.values(SOLDIERS).map((s) => s.file), ...gunIds.flatMap((id) => GunModels.filesFor(id)), ...(builtinMap(this.mapId) ? MapProps.files(this.mapId) : [])])];
       await Assets.preload(files, opts.bg ? null : (p) => HUD.connecting(true, 'Preparo i modelli… ' + Math.round(p * 100) + '%'), opts.bg ? 30000 : 4000);
       const cam = R.camera, grp = new THREE.Group();
       const vars = Object.keys(SOLDIERS), n = Math.max(vars.length, gunIds.length);

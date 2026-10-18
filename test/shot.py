@@ -1,40 +1,46 @@
-"""Single screenshot of a test harness page that sets window.__done / window.__info
-(for example the material swatch sheet, test/swatch_main.js).
+"""Screenshots of the real game on the GPU (no test flags: full quality), optionally after running JS.
 
-build:  python3 build.py test/swatch.html --standalone --template test/tpl.html --main test/swatch_main.js \
-            --files 00_head.js,01_util.js,02_textures.js,02b_textures_extra.js,04a_materials.js
-usage:  python3 test/shot.py http://127.0.0.1:8765/test/swatch.html /tmp/swatch.png [wait=30] [1280 720]
-env:    RAFFICA_CHROME, RAFFICA_GPU (see run.py)
+usage: .venv/bin/python test/shot.py URL --out shot.png [--wait 25] [--js @file.js | --js "code"] [--after 2]
+       [--w 1600 --h 900] [--quality ultra] [--views @views.json]   (views: [[name, js], ...] one shot each)
+The JS runs in the page after --wait seconds (it may return a promise); shots are taken --after seconds later.
 """
-import asyncio, sys, json, time, os
+import asyncio, argparse, json, os
 from playwright.async_api import async_playwright
 
-URL = sys.argv[1]
-OUT = sys.argv[2] if len(sys.argv) > 2 else '/tmp/shot.png'
-WAIT = float(sys.argv[3]) if len(sys.argv) > 3 else 30
-W = int(sys.argv[4]) if len(sys.argv) > 4 else 1280
-H = int(sys.argv[5]) if len(sys.argv) > 5 else 720
-GL_ARGS = [] if os.environ.get('RAFFICA_GPU') == '1' else ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']
-
+ap = argparse.ArgumentParser()
+ap.add_argument('url'); ap.add_argument('--out', default='shot.png')
+ap.add_argument('--wait', type=float, default=25); ap.add_argument('--after', type=float, default=2)
+ap.add_argument('--js', default=''); ap.add_argument('--views', default='')
+ap.add_argument('--w', type=int, default=1600); ap.add_argument('--h', type=int, default=900)
+ap.add_argument('--quality', default='')
+a = ap.parse_args()
+src = lambda s: open(s[1:]).read() if s.startswith('@') else s
+GPU = ['--disable-blink-features=AutomationControlled', '--enable-gpu', '--ignore-gpu-blocklist', '--disable-background-timer-throttling',
+       '--disable-renderer-backgrounding', '--disable-backgrounding-occluded-windows', '--autoplay-policy=no-user-gesture-required']
 
 async def main():
     async with async_playwright() as p:
-        b = await p.chromium.launch(executable_path=os.environ.get('RAFFICA_CHROME') or None, args=GL_ARGS + ['--autoplay-policy=no-user-gesture-required'])
-        pg = await b.new_page(viewport={'width': W, 'height': H})
-        logs = []
-        pg.on('console', lambda m: logs.append(f'[{m.type}] {m.text}'))
-        pg.on('pageerror', lambda e: logs.append(f'[pageerror] {e}'))
-        await pg.goto(URL)
-        t0 = time.time()
-        while time.time() - t0 < WAIT:
-            await asyncio.sleep(0.5)
-            if await pg.evaluate('window.__done === true'):
-                break
-        info = await pg.evaluate('window.__info || null')
-        await pg.screenshot(path=OUT)
-        print('INFO', json.dumps(info))
-        for l in logs[-60:]:
-            print(l)
+        b = await p.chromium.launch(executable_path=os.environ.get('RAFFICA_CHROME') or None, args=GPU)
+        pg = await b.new_page(viewport={'width': a.w, 'height': a.h})
+        pg.on('pageerror', lambda e: print('[pageerror]', e))
+        pg.on('console', lambda m: m.type in ('error', 'warning') and print('[' + m.type + ']', m.text[:300]))
+        if a.quality:
+            await pg.add_init_script("try { const s = JSON.parse(localStorage.getItem('raffica.settings') || '{}'); s.quality = %s; localStorage.setItem('raffica.settings', JSON.stringify(s)); } catch (e) {}" % json.dumps(a.quality))
+        await pg.goto(a.url)
+        await asyncio.sleep(a.wait)
+        if a.js:
+            r = await pg.evaluate('async () => { ' + src(a.js) + ' }')
+            if r is not None: print(json.dumps(r)[:4000])
+        if a.views:
+            base, ext = os.path.splitext(a.out)
+            for name, js in json.loads(src(a.views)):
+                r = await pg.evaluate('async () => { ' + js + ' }')
+                if r is not None: print(name, json.dumps(r)[:1000])
+                await asyncio.sleep(a.after)
+                await pg.screenshot(path=f'{base}_{name}{ext}'); print('shot', f'{base}_{name}{ext}')
+        else:
+            await asyncio.sleep(a.after)
+            await pg.screenshot(path=a.out); print('shot', a.out)
         await b.close()
 
 asyncio.run(main())

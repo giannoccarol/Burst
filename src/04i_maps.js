@@ -6,16 +6,20 @@ const BUILTIN_MAPS = {
   borgo: {
     name: 'Borgo', tag: 'Piazza italiana · ore 17:40', env: 'borgo', shadow: 62,
     load(holder) {
+      MapProps.begin();
       const map = buildMap(holder);
       const backdrop = buildBackdrop(R.scene, R.q);
+      MapProps.attach(holder, map.props); if (backdrop && backdrop.props) MapProps.attach(backdrop.group, backdrop.props, { shadow: false });
       return { map, backdrop, info: { id: 'borgo', name: 'Borgo', spawns: map.spawns, flags: FLAGS, zones: HARDPOINTS, bounds: MAPDEF.bounds, water: map.water, menuCam: { c: [0, 2, 0], r: 28, h: 16 } } };
     },
   },
   villette: {
     name: 'Villette', tag: 'Villaggio di prova nel deserto · anni \'50', env: 'deserto', shadow: 44,
     load(holder) {
+      MapProps.begin();
       const map = buildVillette(holder);
       const backdrop = buildDesert(R.scene, R.q);
+      MapProps.attach(holder, map.props); if (backdrop && backdrop.props) MapProps.attach(backdrop.group, backdrop.props, { shadow: false });
       return { map, backdrop, info: { id: 'villette', name: 'Villette', spawns: map.spawns, flags: VL_FLAGS, zones: VL_ZONES, bounds: VL.bounds, water: null, menuCam: { c: [0, 2.5, 0], r: 34, h: 15 } } };
     },
   },

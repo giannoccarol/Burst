@@ -5,6 +5,42 @@
 // degrees for the green house; the vehicles in the street, the village
 // sign and the desert backdrop are unique pieces.
 // ===================================================================
+// GLB props of this map (see MapProps in 04j_mapprops.js): id -> { file, fit: [axis, metres], rot: degrees, maps }
+const PROP_GLB_VILLETTE = {
+  pickup: { file: 'p_pickup_rancher50.glb', fit: ['x', 5.6], rot: 0, maps: ['villette'] },
+  sedan: { file: 'p_sedan_cadillac_dirty.glb', fit: ['x', 5.4], rot: 0, maps: ['villette'] },
+  caravan: { file: 'p_caravan_50s.glb', fit: ['x', 6.6], rot: 0, maps: ['villette'] },
+  hudson: { file: 'p_hudson_abandoned.glb', fit: ['x', 5.2], rot: 0, maps: ['villette'] },
+  mailbox: { file: 'p_mailbox.glb', fit: ['y', 1.3], rot: 0, maps: ['villette'] },
+  lawnChair: { file: 'p_lawn_chair.glb', fit: ['y', 0.9], rot: 0, maps: ['villette'] },
+  grill: { file: 'p_charcoal_grill.glb', fit: ['y', 1.05], rot: 0, maps: ['villette'] },
+  picnic: { file: 'p_picnic_table.glb', fit: ['max', 1.9], rot: 0, maps: ['villette'] },
+  doghouse: { file: 'p_doghouse.glb', fit: ['y', 1.1], rot: 0, maps: ['villette'] },
+  hydrant: { file: 'p_fire_hydrant.glb', fit: ['y', 0.85], rot: 0, maps: ['villette'] },
+  dummy: { file: 'p_crash_dummy.glb', fit: ['y', 1.8], rot: 0, maps: ['villette'] },
+  sofa: { file: 'p_sofa_50s.glb', fit: ['max', 2.0], rot: 0, maps: ['villette'] },
+  tv: { file: 'p_tv_retro.glb', fit: ['y', 0.95], rot: 0, maps: ['villette'] },
+  fridge: { file: 'p_fridge_50s.glb', fit: ['y', 1.65], rot: 0, maps: ['villette'] },
+  stove: { file: 'p_gas_stove.glb', fit: ['y', 0.95], rot: 0, maps: ['villette'] },
+  bed: { file: 'p_bed_metal.glb', fit: ['max', 2.0], rot: 0, maps: ['villette'] },
+  dresser: { file: 'p_dresser.glb', fit: ['y', 1.1], rot: 0, maps: ['villette'] },
+  joshuaA: { file: 'p_joshua_tree_a.glb', fit: ['y', 4.5], rot: 0, maps: ['villette'] },
+  joshuaB: { file: 'p_joshua_tree_b.glb', fit: ['y', 5.5], rot: 0, maps: ['villette'] },
+  saguaroA: { file: 'p_saguaro_a.glb', fit: ['y', 5.0], rot: 0, maps: ['villette'] },
+  saguaroB: { file: 'p_saguaro_b.glb', fit: ['y', 2.2], rot: 0, maps: ['villette'] },
+  tumbleweed: { file: 'p_tumbleweed.glb', fit: ['max', 0.8], rot: 0, maps: ['villette'] },
+  dryBush: { file: 'p_dry_bush.glb', fit: ['max', 1.0], rot: 0, maps: ['villette'] },
+  rocks: { file: 'p_desert_rocks.glb', fit: ['max', 6.0], rot: 0, maps: ['villette'] },
+  waterTower: { file: 'p_water_tower.glb', fit: ['y', 14.0], rot: 0, maps: ['villette'] },
+  sandbags: { file: 'p_sandbags.glb', fit: ['max', 3.0], rot: 0, maps: ['villette'] },
+  drums: { file: 'p_oil_drums.glb', fit: ['y', 0.95], rot: 0, maps: ['villette'] },
+  propane: { file: 'p_propane_tank.glb', fit: ['max', 1.2], rot: 0, maps: ['villette'] },
+  trashCan: { file: 'p_trash_can.glb', fit: ['y', 0.8], rot: 0, maps: ['villette'] },
+  radSign: { file: 'p_radiation_sign.glb', fit: ['y', 2.2], rot: 0, maps: ['villette'] },
+  pole: { file: 'p_electric_pole.glb', fit: ['y', 9.0], rot: 0, maps: ['villette'] },
+  jerryCan: { file: 'p_jerry_can.glb', fit: ['y', 0.47], rot: 0, maps: ['villette'] },
+};
+
 const VL = {
   name: 'Villette', bounds: { x0: -28, x1: 28, z0: -28, z1: 28 },
   gf: 0.3, uf: 3.4, eh: 6.4, wt: 0.25,
@@ -871,7 +907,7 @@ function buildVillette(scene) {
   const spawns = [];
   for (const s of VL_SPAWNS_A) { spawns.push({ x: s[0], y: s[1], z: s[2], team: s[3] }); spawns.push({ x: -s[0], y: s[1], z: -s[2], team: s[3] === 1 ? 2 : s[3] === 2 ? 1 : 0 }); }
   for (const s of spawns) s.yaw = Math.atan2(s.x, s.z);
-  return { group, world: W, lights, spawns, dynamic: vlDynamic };
+  return { group, world: W, lights, spawns, dynamic: vlDynamic, props: F.glb.concat(MapProps.mirrored(A.glb)) };
 }
 
 // the village sign counts the people still standing

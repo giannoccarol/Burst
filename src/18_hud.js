@@ -121,7 +121,7 @@ const HUD = {
     this._mapBusy = true;
     this.loading('Carico ' + B.name + '…', 0.5);
     await nextFrame(); await nextFrame();
-    try { if (this.selMap === id && Game.state === 'menu') Game.loadMap(id); } finally { this._mapBusy = false; this.loading(null); }
+    try { await MapProps.preload(id, 6000); if (this.selMap === id && Game.state === 'menu') Game.loadMap(id); } finally { this._mapBusy = false; this.loading(null); }
     if (this.selMap !== id) this.pickMap(this.selMap);
   },
   makeWeaponIcons(ids) {

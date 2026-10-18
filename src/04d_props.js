@@ -1,6 +1,31 @@
 // ===================================================================
 // Buildings and props
 // ===================================================================
+// GLB props of this map (see MapProps in 04j_mapprops.js): id -> { file, fit: [axis, metres], rot: degrees, maps }
+const PROP_GLB_BORGO = {
+  vespa: { file: 'p_vespa_worn.glb', fit: ['x', 1.8], rot: 0, maps: ['borgo'] },
+  fiat500: { file: 'p_fiat500_1966.glb', fit: ['x', 2.97], rot: 0, maps: ['borgo'] },
+  fiat132: { file: 'p_fiat132_abandoned.glb', fit: ['x', 4.4], rot: 0, maps: ['borgo'] },
+  cafeSet: { file: 'p_cafe_set.glb', fit: ['y', 0.95], rot: 0, maps: ['borgo'] },
+  umbrella: { file: 'p_patio_umbrella.glb', fit: ['y', 2.6], rot: 0, maps: ['borgo'] },
+  stall: { file: 'p_market_stall.glb', fit: ['max', 4.0], rot: 0, maps: ['borgo'] },
+  wineBarrel: { file: 'p_wine_barrel.glb', fit: ['max', 1.2], rot: 0, maps: ['borgo'] },
+  barrels: { file: 'p_barrels_wood.glb', fit: ['y', 1.0], rot: 0, maps: ['borgo'] },
+  amphora: { file: 'p_amphora_byz.glb', fit: ['y', 0.6], rot: 0, maps: ['borgo'] },
+  pots: { file: 'p_pots_old.glb', fit: ['max', 0.9], rot: 0, maps: ['borgo'] },
+  plant: { file: 'p_plant_med_flower.glb', fit: ['y', 0.9], rot: 0, maps: ['borgo'] },
+  geranium: { file: 'p_geranium.glb', fit: ['y', 0.45], rot: 0, maps: ['borgo'] },
+  bench: { file: 'p_bench_aged.glb', fit: ['x', 1.8], rot: 0, maps: ['borgo'] },
+  streetLamp: { file: 'p_street_lamp.glb', fit: ['y', 4.2], rot: 0, maps: ['borgo'] },
+  bicycle: { file: 'p_bicycle_rusty.glb', fit: ['x', 1.75], rot: 0, maps: ['borgo'] },
+  well: { file: 'p_well_bucket.glb', fit: ['y', 2.4], rot: 0, maps: ['borgo'] },
+  laundry: { file: 'p_laundry_line.glb', fit: ['x', 3.5], rot: 0, maps: ['borgo'] },
+  cypress: { file: 'p_cypress.glb', fit: ['y', 9.0], rot: 0, maps: ['borgo'] },
+  crates: { file: 'p_crates_bumstrum.glb', fit: ['y', 1.0], rot: 0, maps: ['borgo', 'villette'] },
+  boxes: { file: 'p_wooden_boxes.glb', fit: ['y', 0.6], rot: 0, maps: ['borgo'] },
+  floorSign: { file: 'p_floor_sign.glb', fit: ['y', 1.0], rot: 0, maps: ['borgo'] },
+};
+
 const SIDE_FACE = { n: 'nz', s: 'pz', e: 'px', w: 'nx' };
 
 function house(ctx, o) {

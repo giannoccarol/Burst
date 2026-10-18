@@ -2,7 +2,7 @@
 // Boot (with the viewer's hot-reload hook when present)
 // ===================================================================
 (function () {
-  window.RAFFICA = { Game, Net, R, HUD, SFX, FX, Input, Nav, MODES, WEAPONS, CLASSES, Progress, Editor, CATALOG, EDIT_MATS, BUILTIN_MAPS, buildCustomMap, exampleMapDef, emat };
+  window.RAFFICA = { Game, Net, R, HUD, SFX, FX, Input, Nav, MODES, WEAPONS, CLASSES, Progress, Editor, CATALOG, EDIT_MATS, BUILTIN_MAPS, buildCustomMap, exampleMapDef, emat, MapProps, PROP_GLB, Assets, THREE };
   const hot = window.claude && window.claude.hot;
   try { if (hot && typeof hot.snapshot === 'function') hot.snapshot(() => ({ room: Net.roomName, cls: Game.cls, nick: Game.nick, mode: Game.roomCfg.mode })); } catch (e) { /* optional */ }
   const start = (data) => {

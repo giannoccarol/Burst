@@ -11,6 +11,7 @@ class MapCtx {
     this.tris = [];    // ray triangles [[a],[b],[c],surf]
     this.objects = []; // { obj: THREE.Object3D } added directly (instanced / special)
     this.lights = [];
+    this.glb = [];     // GLB prop placements (MapProps)
   }
   r(a = 0, b = 1) { return a + this.rng() * (b - a); }
   ri(a, b) { return Math.floor(a + this.rng() * (b - a + 1)); }

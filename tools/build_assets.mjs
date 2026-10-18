@@ -46,6 +46,31 @@ export const MODELS = [
     ['sniper', 'Soldato: tiratore scelto'], ['desert', 'Soldato: deserto pesante'], ['snow', 'Soldato: neve'], ['marine', 'Soldato: mimetica da campo'],
     ['navy', 'Soldato: blu marina'], ['mechanic', 'Soldato: tecnico'], ['swat', 'Soldato: squadra speciale'],
   ].map(([v, use]) => ({ id: 'soldier_' + v, src: 'soldier_' + v, character: true, use, tex: PER_PART.has(v) ? 768 : 1024 })),
+  // map props (assets/src/props/<slug>/, see assets/src/props/manifest.json): p_<slug>.glb, placed by MapProps
+  ...[
+    // Villette
+    ['pickup_rancher50', 1024, 'Villette: pick-up in strada'], ['sedan_cadillac_dirty', 1024, 'Villette: berlina parcheggiata'],
+    ['caravan_50s', 512, 'Villette: roulotte'], ['hudson_abandoned', 512, 'Villette: relitto nel deserto'],
+    ['mailbox', 512, 'Villette: cassetta delle lettere'], ['lawn_chair', 512, 'Villette: sedia da giardino'],
+    ['charcoal_grill', 512, 'Villette: barbecue'], ['picnic_table', 512, 'Villette: tavolo da picnic'],
+    ['doghouse', 512, 'Villette: cuccia'], ['fire_hydrant', 512, 'Villette: idrante'], ['crash_dummy', 512, 'Villette: manichino'],
+    ['sofa_50s', 512, 'Villette: divano'], ['tv_retro', 512, 'Villette: televisore'], ['fridge_50s', 512, 'Villette: frigorifero'],
+    ['gas_stove', 512, 'Villette: cucina a gas'], ['bed_metal', 512, 'Villette: letto'], ['dresser', 512, 'Villette: cassettiera'],
+    ['joshua_tree_a', 512, 'Villette: albero di Giosuè'], ['joshua_tree_b', 512, 'Villette: albero di Giosuè'],
+    ['saguaro_a', 512, 'Villette: cactus saguaro', 0.5], ['saguaro_b', 512, 'Villette: cactus saguaro'],
+    ['tumbleweed', 512, 'Villette: rotolacampo'], ['dry_bush', 512, 'Villette: cespuglio secco'], ['desert_rocks', 512, 'Villette: rocce'],
+    ['water_tower', 512, 'Villette: torre dell\'acqua'], ['sandbags', 512, 'Villette: sacchi di sabbia'], ['oil_drums', 512, 'Villette: fusti'],
+    ['propane_tank', 512, 'Villette: bombola del gas'], ['trash_can', 512, 'Villette: bidone'], ['radiation_sign', 512, 'Villette: cartello radiazioni'],
+    ['electric_pole', 512, 'Villette: palo della luce'], ['jerry_can', 512, 'Villette: tanica'],
+    // Borgo
+    ['vespa_worn', 512, 'Borgo: scooter'], ['fiat500_1966', 1024, 'Borgo: utilitaria'], ['fiat132_abandoned', 512, 'Borgo: auto abbandonata'],
+    ['cafe_set', 512, 'Borgo: tavolino del bar'], ['patio_umbrella', 512, 'Borgo: ombrellone'], ['market_stall', 1024, 'Borgo: bancarella'],
+    ['wine_barrel', 512, 'Borgo: botte'], ['barrels_wood', 512, 'Borgo: barili'], ['amphora_byz', 512, 'Borgo: anfora'], ['pots_old', 512, 'Borgo: vasi'],
+    ['plant_med_flower', 512, 'Borgo: pianta in vaso'], ['geranium', 512, 'Borgo: gerani'], ['bench_aged', 512, 'Borgo: panchina'],
+    ['street_lamp', 512, 'Borgo: lampione'], ['bicycle_rusty', 512, 'Borgo: bicicletta'], ['well_bucket', 512, 'Borgo: pozzo'],
+    ['laundry_line', 512, 'Borgo: panni stesi'], ['cypress', 1024, 'Borgo: cipresso', 0.45], ['crates_bumstrum', 512, 'Borgo e Villette: casse'],
+    ['wooden_boxes', 512, 'Borgo: cassette di legno'], ['floor_sign', 512, 'Borgo: cavalletto del bar'],
+  ].map(([slug, tex, use, simplify]) => ({ id: 'p_' + slug, src: 'props/' + slug, tex, use, prop: true, ...(simplify ? { simplify } : {}) })),
 ];
 
 const args = process.argv.slice(2);
