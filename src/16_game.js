@@ -166,9 +166,11 @@ const Game = {
   },
   autoScale() {
     if (!R.dynRes() || this.state !== 'playing') return;
-    // dynamic resolution to keep the game smooth
+    // dynamic resolution to keep the game smooth; ignore the first seconds of a match (loading spikes)
+    // and never go below 75%, where the image gets visibly blurry
+    if (performance.now() - (this.joinT || 0) < 6000) return;
     const prev = R.dynScale;
-    if (this.fps < 45) R.dynScale = Math.max(0.6, R.dynScale - 0.08);
+    if (this.fps < 40) R.dynScale = Math.max(0.75, R.dynScale - 0.05);
     else if (this.fps > 75) R.dynScale = Math.min(1, R.dynScale + 0.04);
     if (prev !== R.dynScale) R.resize(true);
   },
@@ -427,6 +429,8 @@ const Game = {
     if (mode.id === 'gun' && ids[0] !== 'knife') ids.push('knife');
     me.inv = ids.map((id) => ({ id, ammo: WEAPONS[id].mag || 0 }));
     me.slot = 0; me.lastSlot = 0;
+    // fetch every weapon of the loadout now, so switching later doesn't stall on a download/decode
+    if (typeof GunModels !== 'undefined') for (const id of ids) { try { GunModels.request(id); } catch (e) { /* procedural fallback */ } }
     me.maxHp = mode.id === 'inf' && me.team === 2 ? 150 : c.hp;
     me.speedMult = c.speed * (mode.id === 'inf' && me.team === 2 ? 1.12 : 1);
     if (mode.id === 'gun') { me.maxHp = 100; me.speedMult = 1.05; }
