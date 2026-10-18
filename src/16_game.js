@@ -550,7 +550,7 @@ const Game = {
       ads: me.adsT, speed: hsp, grounded: mv.onGround, sliding: mv.sliding, dx: lookX, dy: lookY,
       reload: me.reload ? { t: me.reload.t / me.reload.total, kind: me.reload.kind } : null,
       melee: me.melee >= 0 ? me.melee / me.meleeDur : -1, bolt: me.bolt >= 0 ? me.bolt / WEAPONS.sniper.bolt : -1,
-      pump: me.pump >= 0 ? me.pump / 0.55 : -1, visible: !(def.scope && me.adsT > 0.8), landed, empty: w && w.ammo <= 0,
+      pump: me.pump >= 0 ? me.pump / 0.55 : -1, visible: !(def.scope && me.adsT > 0.75), landed, empty: w && w.ammo <= 0,
     });
     R.updateVMLight(this.world);
   },
@@ -578,7 +578,11 @@ const Game = {
     C.fovK = damp(C.fovK, fk * (1 - ads), 5, dt);
     cam.position.set(mv.pos.x, mv.pos.y + mv.eye + mv.stepSmooth + C.land + bobY, mv.pos.z);
     cam.rotation.set(me.pitch + me.punchP + C.land * 0.18 + (Math.random() - 0.5) * sh * 0.04, me.yaw + me.punchY + (Math.random() - 0.5) * sh * 0.04, C.roll + bobR + this.rollKick + (Math.random() - 0.5) * sh * 0.02, 'YXZ');
-    const fov = (SETTINGS.fov + C.fovK) / this.zoomFactor();
+    if (this.wasScoped && me.alive) {
+      const t = (performance.now() - (this.scopedAt || 0)) / 1000, amp = (0.0012 + 0.0045 * smoothstep(1.5, 5, t)) * (mv.crouching ? 0.5 : 1);
+      cam.rotation.x += Math.sin(t * 1.3) * amp; cam.rotation.y += Math.sin(t * 0.85 + 1.1) * amp * 1.3;
+    }
+    const fov = vfovFor(SETTINGS.hfov + C.fovK, cam.aspect) / this.zoomFactor();
     if (Math.abs(cam.fov - fov) > 0.01) { cam.fov = fov; cam.updateProjectionMatrix(); }
   },
   updateDead(dt, now) {
@@ -596,7 +600,8 @@ const Game = {
       cam.quaternion.slerp(q, Math.min(1, dt * 4));
     } else cam.rotation.x = lerp(cam.rotation.x, -0.6, dt * 2);
     this.vm.update(dt, { ads: 0, speed: 0, grounded: true, visible: false });
-    if (cam.fov !== SETTINGS.fov) { cam.fov = SETTINGS.fov; cam.updateProjectionMatrix(); }
+    const dfov = vfovFor(SETTINGS.hfov, cam.aspect);
+    if (Math.abs(cam.fov - dfov) > 0.01) { cam.fov = dfov; cam.updateProjectionMatrix(); }
     if (this.g && this.g.ph === 1) return;
     me.respawnT -= dt;
     if (me.respawnT <= 0 && this.world) this.spawnMe();
@@ -645,8 +650,9 @@ const Game = {
     const canAds = !me.reload && me.switchT <= 0 && def.type !== 'melee' && me.melee < 0 && !(me.bolt >= 0 && def.type === 'bolt');
     const adsSpd = 1 / (def.adsTime || 0.15);
     me.adsT = clamp(me.adsT + (wantAds && canAds ? adsSpd : -adsSpd * 1.3) * dt, 0, 1);
-    if (def.scope && me.adsT > 0.85 && !this.wasScoped) SFX.mech('equip');
-    this.wasScoped = def.scope && me.adsT > 0.85;
+    const scopedNow = !!def.scope && me.adsT > 0.75;
+    if (scopedNow && !this.wasScoped) { SFX.mech('equip'); this.scopedAt = performance.now(); }
+    this.wasScoped = scopedNow;
     // reload input
     if (!typing && (Input.pressed('reload') || Input.touch.reloadP)) this.startReload();
     if (w.ammo <= 0 && !me.reload && def.mag && now > me.nextFire && me.switchT <= 0) this.startReload();
@@ -718,7 +724,8 @@ const Game = {
   spreadNow() {
     const me = this.me, def = WEAPONS[this.cur().id], s = def.spread, mv = me.mover;
     const hs = Math.hypot(mv.vel.x, mv.vel.z);
-    let sp = lerp(s.hip, s.ads, def.scope ? Math.pow(me.adsT, 3) : me.adsT);
+    // scopes: inaccurate while raising, dead-on from 90% (quickscope window, Krunker/CoD style)
+    let sp = def.scope ? (me.adsT >= 0.9 ? s.ads : lerp(s.hip, s.ads, Math.pow(me.adsT / 0.9, 2))) : lerp(s.hip, s.ads, me.adsT);
     sp += s.move * clamp(hs / 8, 0, 1.5) * (1 - me.adsT * 0.6);
     if (!mv.onGround) sp += s.air;
     if (mv.crouching && !mv.sliding) sp *= 0.75;
@@ -794,6 +801,7 @@ const Game = {
     me.yaw += (Math.random() - 0.5) * 2 * def.recoil.y;
     me.punchY += (Math.random() - 0.5) * def.recoil.y;
     me.bloom += def.spread.shot || 0;
+    me.lastShot = { t: performance.now(), wid: w.id, ads: me.adsT, scopeAge: this.wasScoped ? performance.now() - (this.scopedAt || 0) : -1 };
     if (def.type === 'bolt') { me.bolt = 0.0001; setTimeout(() => SFX.mech('bolt'), 120); }
     if (def.type === 'pump') { me.pump = 0.0001; setTimeout(() => SFX.mech('pump'), 140); }
   },
@@ -931,6 +939,12 @@ const Game = {
       SFX.kill(head);
       HUD.hitmarker(head, true);
       HUD.scorePop(pts, head ? 'Colpo alla testa' : 'Eliminato', head ? 'hs' : 'k');
+      // sniper style bonuses: kill within 0.45 s of scoping in, or without scoping at all
+      const ls = me.lastShot, wdef = WEAPONS[WEAPON_IDS[wIdx]];
+      if (ls && wdef && wdef.type === 'bolt' && performance.now() - ls.t < 1500) {
+        if (ls.scopeAge >= 0 && ls.scopeAge < 450) { me.stats.sc += 25; HUD.scorePop(25, 'Quickscope', 'hs'); }
+        else if (ls.ads < 0.2) { me.stats.sc += 50; HUD.scorePop(50, 'No scope', 'hs'); }
+      }
     }
     if (assist === myId && killer !== myId) { me.stats.a++; me.stats.sc += 50; HUD.killNotice(this.nameOf(victim), false, 0, 50, true); Progress.onAssist(); }
     // avatar death animation

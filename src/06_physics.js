@@ -2,7 +2,7 @@
 // Movement physics (Quake-style acceleration, bhop, air strafe, slide)
 // ===================================================================
 const PHYS = {
-  gravity: 25, jumpVel: 8.5, stepH: 0.52, hw: 0.32,
+  gravity: 25, jumpVel: 8.5, stepH: 0.52, hw: 0.27, // 0.54 m wide body: passes 1.2 m doors without snagging
   hStand: 1.8, hCrouch: 1.25, hSlide: 1.0,
   eyeStand: 1.62, eyeCrouch: 1.08, eyeSlide: 0.84,
   accel: 11, airAccel: 15, airCap: 1.1, airControl: 2.2, friction: 6.2, stopSpeed: 2.6,

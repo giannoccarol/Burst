@@ -187,9 +187,11 @@ kbd { font-family: var(--f-wide); font-stretch: 110%; font-weight: 800; font-siz
 .spl { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 3px; animation: knin 0.2s ease; }
 .spl.hs { color: var(--gold); }
 .spl.k { color: var(--red); }
-#scope { position: absolute; inset: 0; display: none; }
-#scope.on { display: block; }
-#scope .ring { position: absolute; left: 50%; top: 50%; width: min(88vh, 88vw); height: min(88vh, 88vw); transform: translate(-50%, -50%); border-radius: 50%; box-shadow: 0 0 0 200vmax #030304, inset 0 0 60px 30px rgba(0,0,0,0.85); }
+#scope { position: absolute; inset: 0; display: none; contain: strict; }
+#scope.on { display: block; animation: scin 0.09s ease-out; }
+@keyframes scin { from { opacity: 0; } to { opacity: 1; } }
+/* a gradient is cheap to composite; the old 200vmax box-shadow made scoped camera turns stutter */
+#scope .ring { position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(3,3,4,0) 0, rgba(3,3,4,0) calc(min(44vh, 44vw) - 46px), rgba(3,3,4,0.82) calc(min(44vh, 44vw) - 3px), #030304 min(44vh, 44vw)); }
 #scope .ln { position: absolute; background: #030304; }
 #scope .lh { left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; }
 #scope .lv { top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px; }
@@ -685,7 +687,7 @@ input[type=color] { width: 44px; height: 30px; padding: 0 2px; background: rgba(
       <h2 class="big">Impostazioni</h2>
       <div class="set"><label for="s-sens">Sensibilità mouse</label><input type="range" id="s-sens" min="0.1" max="4" step="0.05"><output id="o-sens"></output></div>
       <div class="set"><label for="s-ads">Sensibilità in mira</label><input type="range" id="s-ads" min="0.2" max="1.5" step="0.05"><output id="o-ads"></output></div>
-      <div class="set"><label for="s-fov">Campo visivo</label><input type="range" id="s-fov" min="60" max="105" step="1"><output id="o-fov"></output></div>
+      <div class="set"><label for="s-fov">Campo visivo (orizzontale)</label><input type="range" id="s-fov" min="70" max="120" step="1"><output id="o-fov"></output></div>
       <div class="set"><label for="s-vol">Volume</label><input type="range" id="s-vol" min="0" max="1" step="0.05"><output id="o-vol"></output></div>
       <div class="field"><label for="s-q">Qualità grafica</label><select id="s-q"><option value="auto">Automatico</option><option value="minimo">Minimo</option><option value="basso">Basso</option><option value="medio">Medio</option><option value="alto">Alto</option><option value="ultra">Ultra</option><option value="estremo">Estremo</option><option value="custom">Personalizzato</option></select></div>
       <p class="note" id="s-qdesc"></p>

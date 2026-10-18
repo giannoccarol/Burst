@@ -63,8 +63,13 @@ const UP = new THREE.Vector3(0, 1, 0);
 
 // Shared mutable game settings (persisted per viewer)
 const SETTINGS = Object.assign({
-  sens: 1.0, adsSens: 0.8, fov: 78, volume: 0.8, music: 0.4, quality: 'auto', showFps: false,
+  sens: 1.0, adsSens: 0.8, hfov: 90, // horizontal field of view in degrees, like CoD/Krunker (old builds stored a vertical `fov`)
+  volume: 0.8, music: 0.4, quality: 'auto', showFps: false,
   invertY: false, crosshair: 'classic', toggleAds: false, damageNumbers: true, viewBob: true,
   gfx: null, // advanced graphics values when quality === 'custom' (see GFX_PRESETS in 05_render.js)
 }, store.get('settings', {}));
+if (!(SETTINGS.hfov >= 70 && SETTINGS.hfov <= 120)) SETTINGS.hfov = 90;
+delete SETTINGS.fov;
 function saveSettings() { store.set('settings', SETTINGS); }
+// vertical camera FOV (three.js) for a horizontal FOV at a given aspect ratio
+function vfovFor(hfov, aspect) { return 2 * Math.atan(Math.tan(hfov * Math.PI / 360) / Math.max(0.3, aspect || 16 / 9)) * 180 / Math.PI; }

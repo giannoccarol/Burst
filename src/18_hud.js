@@ -421,7 +421,7 @@ const HUD = {
     if (me.spawnProt > 0 && me.alive) hint = 'Protezione allo spawn';
     if (this._hint !== hint) { this._hint = hint; $('#hint').textContent = hint; }
     // crosshair
-    const scoped = def && def.scope && me.adsT > 0.85;
+    const scoped = def && def.scope && me.adsT > 0.75;
     $('#scope').classList.toggle('on', !!scoped && me.alive);
     const xh = $('#xhair');
     const hideX = !me.alive || scoped || (def && def.type !== 'melee' && me.adsT > 0.7) || this.endOpen;
@@ -715,7 +715,7 @@ const HUD = {
       const inp = $('#s-' + id), out = $('#o-' + id);
       inp.addEventListener('input', () => { SETTINGS[key] = +inp.value; if (out) out.textContent = fmt(+inp.value); saveSettings(); this.applySettings(key); });
     };
-    bind('sens', 'sens', (v) => v.toFixed(2)); bind('ads', 'adsSens', (v) => v.toFixed(2)); bind('fov', 'fov', (v) => v + '°'); bind('vol', 'volume', (v) => Math.round(v * 100) + '%');
+    bind('sens', 'sens', (v) => v.toFixed(2)); bind('ads', 'adsSens', (v) => v.toFixed(2)); bind('fov', 'hfov', (v) => v + '°'); bind('vol', 'volume', (v) => Math.round(v * 100) + '%');
     $('#s-q').addEventListener('change', (e) => {
       const v = e.target.value;
       if (v === 'custom') SETTINGS.gfx = Object.assign({}, R.cfg);
@@ -745,7 +745,7 @@ const HUD = {
   syncSettings() {
     const set = (id, v, txt) => { $('#s-' + id).value = v; const o = $('#o-' + id); if (o) o.textContent = txt; };
     set('sens', SETTINGS.sens, SETTINGS.sens.toFixed(2)); set('ads', SETTINGS.adsSens, SETTINGS.adsSens.toFixed(2));
-    set('fov', SETTINGS.fov, SETTINGS.fov + '°'); set('vol', SETTINGS.volume, Math.round(SETTINGS.volume * 100) + '%');
+    set('fov', SETTINGS.hfov, SETTINGS.hfov + '°'); set('vol', SETTINGS.volume, Math.round(SETTINGS.volume * 100) + '%');
     const c = R.cfg, id = gfxPresetId(SETTINGS.quality);
     $('#s-q').value = id;
     for (const [key] of GFX_UI) { const sel = $('#s-g-' + key); if (sel) sel.value = String(c[key]); }
