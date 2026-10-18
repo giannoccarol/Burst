@@ -1,4 +1,5 @@
-window.__RAF_TEST = { lowres: 0.3, noshadow: true };
+// low resolution and no shadows only under automation (Playwright); opened by hand the page plays at full quality
+if (navigator.webdriver) window.__RAF_TEST = { lowres: 0.3, noshadow: true };
 // test-only: drive the game from the URL hash, e.g. #offline or #room=test
 window.__autostart = function () {
   const h = location.hash.slice(1);
