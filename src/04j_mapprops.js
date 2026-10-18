@@ -61,6 +61,8 @@ const MapProps = {
       const mats = Array.isArray(o.material) ? o.material : [o.material];
       const mat = mats[0];
       if (mat.transparent && mat.opacity > 0.98 && !/glass|lens|vetro/i.test(mat.name || '')) mat.transparent = false;
+      // transmission makes three.js render the whole scene once more per frame (~8 ms on a laptop GPU)
+      if (mat.transmission > 0) { mat.transmission = 0; mat.needsUpdate = true; }
       if (!byMat.has(mat)) byMat.set(mat, []);
       byMat.get(mat).push(geo);
     });
@@ -72,14 +74,19 @@ const MapProps = {
   },
   // normalised size of a model (for writing collision boxes; null until its file is loaded)
   dims(id) { const p = this.proto(id); return p ? p.size.toArray().map((v) => +v.toFixed(3)) : null; },
-  // draw the placements under `holder`, one merged mesh per (model, material); placements whose file
-  // is still loading are drawn when it arrives (if the holder is still in the scene)
+  // draw the placements under `holder`, one merged mesh per (model, material, 16 m cell: off-screen
+  // cells are culled); placements whose file is still loading are drawn when it arrives (if the holder
+  // is still in the scene). PROP_GLB entries with shadow: false never cast shadows (small decoration).
   attach(holder, list, o = {}) {
-    const byId = new Map();
-    for (const p of list || []) { if (!byId.has(p.id)) byId.set(p.id, []); byId.get(p.id).push(p); }
+    const byId = new Map(), CELL = 16;
+    for (const p of list || []) {
+      const e = p.m.elements, k = p.id + '@' + Math.floor(e[12] / CELL) + ',' + Math.floor(e[14] / CELL);
+      if (!byId.has(k)) byId.set(k, []);
+      byId.get(k).push(p);
+    }
     const pending = new Map();
-    const draw = (id, ps) => {
-      const pr = this.proto(id);
+    const draw = (key, ps) => {
+      const id = ps[0].id, pr = this.proto(id);
       if (!pr) return false;
       for (const { mat, geo } of pr.parts) {
         const geos = ps.map((p) => geo.clone().applyMatrix4(p.m));
@@ -88,17 +95,17 @@ const MapProps = {
         merged.computeBoundingSphere(); merged.computeBoundingBox();
         const mesh = new THREE.Mesh(merged, mat);
         mesh.name = 'prop:' + id;
-        mesh.castShadow = o.shadow !== false; mesh.receiveShadow = true;
+        mesh.castShadow = o.shadow !== false && PROP_GLB[id].shadow !== false; mesh.receiveShadow = true;
         mesh.matrixAutoUpdate = false; mesh.updateMatrix();
         holder.add(mesh);
       }
       return true;
     };
-    for (const [id, ps] of byId) if (!draw(id, ps)) pending.set(PROP_GLB[id].file, [id, ps]);
+    for (const [key, ps] of byId) if (!draw(key, ps)) { const f = PROP_GLB[ps[0].id].file; if (!pending.has(f)) pending.set(f, []); pending.get(f).push([key, ps]); }
     if (pending.size) {
       const fn = (file) => {
         const e = pending.get(file);
-        if (e && holder.parent) { pending.delete(file); if (draw(e[0], e[1]) && typeof R !== 'undefined') R.staticDirty = true; }
+        if (e && holder.parent) { pending.delete(file); let any = false; for (const [key, ps] of e) any = draw(key, ps) || any; if (any && typeof R !== 'undefined') R.staticDirty = true; }
         if (!pending.size || !holder.parent) { const i = Assets.listeners.indexOf(fn); if (i >= 0) Assets.listeners.splice(i, 1); }
       };
       Assets.listeners.push(fn);

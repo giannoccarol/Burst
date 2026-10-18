@@ -7,38 +7,42 @@
 // ===================================================================
 // GLB props of this map (see MapProps in 04j_mapprops.js): id -> { file, fit: [axis, metres], rot: degrees, maps }
 const PROP_GLB_VILLETTE = {
-  pickup: { file: 'p_pickup_rancher50.glb', fit: ['x', 5.6], rot: 0, maps: ['villette'] },
-  sedan: { file: 'p_sedan_cadillac_dirty.glb', fit: ['x', 5.4], rot: 0, maps: ['villette'] },
-  caravan: { file: 'p_caravan_50s.glb', fit: ['x', 6.6], rot: 0, maps: ['villette'] },
-  hudson: { file: 'p_hudson_abandoned.glb', fit: ['x', 5.2], rot: 0, maps: ['villette'] },
-  mailbox: { file: 'p_mailbox.glb', fit: ['y', 1.3], rot: 0, maps: ['villette'] },
+  // vehicles (front = local +x)
+  pickup: { file: 'p_pickup_rancher50.glb', fit: ['x', 4.95], rot: 0, maps: ['villette'] },
+  sedan: { file: 'p_sedan_cadillac_dirty.glb', fit: ['x', 5.6], rot: 90, maps: ['villette'] },
+  caravan: { file: 'p_caravan_50s.glb', fit: ['x', 6.4], rot: 90, maps: ['villette'] }, // hitch included
+  hudson: { file: 'p_hudson_abandoned.glb', fit: ['x', 5.2], rot: 90, maps: ['villette'] },
+  // yards and street
+  mailbox: { file: 'p_mailbox.glb', fit: ['y', 1.3], rot: 90, maps: ['villette'] }, // door on +x
   lawnChair: { file: 'p_lawn_chair.glb', fit: ['y', 0.9], rot: 0, maps: ['villette'] },
-  grill: { file: 'p_charcoal_grill.glb', fit: ['y', 1.05], rot: 0, maps: ['villette'] },
-  picnic: { file: 'p_picnic_table.glb', fit: ['max', 1.9], rot: 0, maps: ['villette'] },
-  doghouse: { file: 'p_doghouse.glb', fit: ['y', 1.1], rot: 0, maps: ['villette'] },
-  hydrant: { file: 'p_fire_hydrant.glb', fit: ['y', 0.85], rot: 0, maps: ['villette'] },
-  dummy: { file: 'p_crash_dummy.glb', fit: ['y', 1.8], rot: 0, maps: ['villette'] },
-  sofa: { file: 'p_sofa_50s.glb', fit: ['max', 2.0], rot: 0, maps: ['villette'] },
-  tv: { file: 'p_tv_retro.glb', fit: ['y', 0.95], rot: 0, maps: ['villette'] },
-  fridge: { file: 'p_fridge_50s.glb', fit: ['y', 1.65], rot: 0, maps: ['villette'] },
-  stove: { file: 'p_gas_stove.glb', fit: ['y', 0.95], rot: 0, maps: ['villette'] },
-  bed: { file: 'p_bed_metal.glb', fit: ['max', 2.0], rot: 0, maps: ['villette'] },
-  dresser: { file: 'p_dresser.glb', fit: ['y', 1.1], rot: 0, maps: ['villette'] },
-  joshuaA: { file: 'p_joshua_tree_a.glb', fit: ['y', 4.5], rot: 0, maps: ['villette'] },
-  joshuaB: { file: 'p_joshua_tree_b.glb', fit: ['y', 5.5], rot: 0, maps: ['villette'] },
+  grill: { file: 'p_charcoal_grill.glb', fit: ['y', 1.0], rot: 0, maps: ['villette'] },
+  picnic: { file: 'p_picnic_table.glb', fit: ['y', 0.78], rot: 0, maps: ['villette'] },
+  doghouse: { file: 'p_doghouse.glb', fit: ['y', 1.1], rot: 90, maps: ['villette'] }, // opening on +x
+  hydrant: { file: 'p_fire_hydrant.glb', fit: ['y', 0.8], rot: 0, maps: ['villette'] },
+  dummy: { file: 'p_crash_dummy.glb', fit: ['y', 1.8], rot: 90, maps: ['villette'] },
+  sandbags: { file: 'p_sandbags.glb', fit: ['max', 3.0], rot: 0, maps: ['villette'] }, // loose pile, 0.36 m high
+  drums: { file: 'p_oil_drums.glb', fit: ['y', 0.95], rot: 0, maps: ['villette'] },
+  propane: { file: 'p_propane_tank.glb', fit: ['y', 1.2], rot: 0, maps: ['villette'] },
+  trashCan: { file: 'p_trash_can.glb', fit: ['y', 0.8], rot: 0, maps: ['villette'] },
+  radSign: { file: 'p_radiation_sign.glb', fit: ['y', 2.2], rot: 90, maps: ['villette'] }, // faces +x
+  pole: { file: 'p_electric_pole.glb', fit: ['y', 9.0], rot: 90, maps: ['villette'] }, // cross-arm along z, trunk at x -0.45
+  jerryCan: { file: 'p_jerry_can.glb', fit: ['y', 0.47], rot: 0, maps: ['villette'] },
+  // furniture (front = local +x)
+  sofa: { file: 'p_sofa_50s.glb', fit: ['max', 2.0], rot: 90, maps: ['villette'] },
+  tv: { file: 'p_tv_retro.glb', fit: ['y', 0.62], rot: 90, maps: ['villette'] },
+  fridge: { file: 'p_fridge_50s.glb', fit: ['y', 1.65], rot: 90, maps: ['villette'] },
+  stove: { file: 'p_gas_stove.glb', fit: ['y', 0.95], rot: 90, maps: ['villette'] },
+  bed: { file: 'p_bed_metal.glb', fit: ['x', 1.95], rot: 0, maps: ['villette'] }, // headboard on -x
+  dresser: { file: 'p_dresser.glb', fit: ['y', 1.0], rot: 0, maps: ['villette'] },
+  // desert backdrop
+  joshuaA: { file: 'p_joshua_tree_a.glb', fit: ['y', 2.6], rot: 0, maps: ['villette'] },
+  joshuaB: { file: 'p_joshua_tree_b.glb', fit: ['y', 3.2], rot: 0, maps: ['villette'] },
   saguaroA: { file: 'p_saguaro_a.glb', fit: ['y', 5.0], rot: 0, maps: ['villette'] },
   saguaroB: { file: 'p_saguaro_b.glb', fit: ['y', 2.2], rot: 0, maps: ['villette'] },
   tumbleweed: { file: 'p_tumbleweed.glb', fit: ['max', 0.8], rot: 0, maps: ['villette'] },
   dryBush: { file: 'p_dry_bush.glb', fit: ['max', 1.0], rot: 0, maps: ['villette'] },
   rocks: { file: 'p_desert_rocks.glb', fit: ['max', 6.0], rot: 0, maps: ['villette'] },
-  waterTower: { file: 'p_water_tower.glb', fit: ['y', 14.0], rot: 0, maps: ['villette'] },
-  sandbags: { file: 'p_sandbags.glb', fit: ['max', 3.0], rot: 0, maps: ['villette'] },
-  drums: { file: 'p_oil_drums.glb', fit: ['y', 0.95], rot: 0, maps: ['villette'] },
-  propane: { file: 'p_propane_tank.glb', fit: ['max', 1.2], rot: 0, maps: ['villette'] },
-  trashCan: { file: 'p_trash_can.glb', fit: ['y', 0.8], rot: 0, maps: ['villette'] },
-  radSign: { file: 'p_radiation_sign.glb', fit: ['y', 2.2], rot: 0, maps: ['villette'] },
-  pole: { file: 'p_electric_pole.glb', fit: ['y', 9.0], rot: 0, maps: ['villette'] },
-  jerryCan: { file: 'p_jerry_can.glb', fit: ['y', 0.47], rot: 0, maps: ['villette'] },
+  waterTower: { file: 'p_water_tower.glb', fit: ['y', 16.0], rot: 0, maps: ['villette'] },
 };
 
 const VL = {
@@ -427,13 +431,20 @@ function vlHouse(ctx) {
   // ---------------- furniture
   // living room: sofa facing the TV, coffee table, rug, armchair, floor lamp, bookcase
   G.quad(MAT.fabric('#9b3b33'), [-8.9, gf + 0.004, -13.6], [-6.4, gf + 0.004, -13.6], [-6.4, gf + 0.004, -16.9], [-8.9, gf + 0.004, -16.9]);
-  ctx.block(VLM.sofaA, -6.3, gf, -16.6, -5.5, gf + 0.42, -14.0, { surf: 'cloth' });
-  ctx.block(VLM.sofaA, -5.5, gf, -16.6, -5.22, gf + 0.88, -14.0, { surf: 'cloth' });
-  for (const z of [-16.6, -14.2]) ctx.G.box(VLM.sofaA, -6.3, gf + 0.42, z, -5.5, gf + 0.62, z + 0.2);
+  ctx.solid(-6.23, gf, -16.3, -5.27, gf + 0.45, -14.3, 'cloth');
+  ctx.solid(-5.51, gf + 0.45, -16.25, -5.27, gf + 0.85, -14.35, 'cloth');
+  if (!MapProps.put(ctx, 'sofa', -5.75, gf, -15.3, Math.PI)) {
+    G.box(VLM.sofaA, -6.23, gf, -16.3, -5.51, gf + 0.45, -14.3);
+    G.box(VLM.sofaA, -5.51, gf, -16.3, -5.27, gf + 0.85, -14.3);
+    for (const z of [-16.3, -14.5]) G.box(VLM.sofaA, -6.23, gf + 0.45, z, -5.51, gf + 0.65, z + 0.2);
+  }
   ctx.block(MAT.woodDark, -9.75, gf, -14.55, -9.2, gf + 0.55, -13.25, { surf: 'wood' });
-  ctx.block(MAT.wood, -9.72, gf + 0.55, -14.3, -9.25, gf + 1.1, -13.5, { surf: 'wood' });
-  ctx.G.quad(VLM.screen, [-9.245, gf + 0.64, -14.17], [-9.245, gf + 0.64, -13.63], [-9.245, gf + 1.02, -13.63], [-9.245, gf + 1.02, -14.17]);
-  rod(ctx, MAT.iron, [-9.5, gf + 1.1, -13.9], [-9.5, gf + 1.5, -14.15], 0.008); rod(ctx, MAT.iron, [-9.5, gf + 1.1, -13.9], [-9.5, gf + 1.5, -13.65], 0.008);
+  ctx.solid(-9.72, gf + 0.55, -14.3, -9.2, gf + 1.05, -13.5, 'wood');
+  if (!MapProps.put(ctx, 'tv', -9.45, gf + 0.55, -13.9, 0)) {
+    G.box(MAT.wood, -9.72, gf + 0.55, -14.3, -9.25, gf + 1.05, -13.5);
+    G.quad(VLM.screen, [-9.245, gf + 0.62, -14.17], [-9.245, gf + 0.62, -13.63], [-9.245, gf + 0.98, -13.63], [-9.245, gf + 0.98, -14.17]);
+    rod(ctx, MAT.iron, [-9.5, gf + 1.05, -13.9], [-9.5, gf + 1.4, -14.15], 0.008); rod(ctx, MAT.iron, [-9.5, gf + 1.05, -13.9], [-9.5, gf + 1.4, -13.65], 0.008);
+  }
   ctx.block(MAT.woodDark, -8.3, gf, -15.8, -7.3, gf + 0.42, -14.9, { surf: 'wood' });
   ctx.block(VLM.sofaA, -8.4, gf, -13.25, -7.6, gf + 0.45, -12.5, { surf: 'cloth' });
   ctx.G.box(VLM.sofaA, -8.4, gf, -12.6, -7.6, gf + 0.9, -12.5);
@@ -446,10 +457,13 @@ function vlHouse(ctx) {
   ctx.G.box(VLM.formica, -1.65, gf + 0.9, -12.9, 0.45, gf + 0.95, -12.25);
   ctx.G.box(MAT.chrome, -0.9, gf + 0.95, -12.75, -0.3, gf + 0.97, -12.4);
   ctx.G.box(MAT.paintWhite, 1.4, 2.0, -15.8, X1 - T, 2.65, -12.3);
-  ctx.G.geom(VLM.fridge, new RoundedBoxGeometry(0.72, 1.75, 0.72, 3, 0.1), new THREE.Matrix4().makeTranslation(1.37, gf + 0.875, -19.36));
-  ctx.solid(1.0, gf, -19.73, 1.74, gf + 1.75, -19.0, 'metal');
-  ctx.block(VLM.enamel, 1.1, gf, -18.85, X1 - T, gf + 0.92, -18.05);
-  for (const [x, z] of [[1.3, -18.25], [1.3, -18.65], [1.55, -18.25], [1.55, -18.65]]) gAt(ctx, MAT.iron, new THREE.CylinderGeometry(0.09, 0.09, 0.02, 10), x, gf + 0.93, z);
+  ctx.solid(1.0, gf, -19.73, 1.74, gf + 1.65, -19.0, 'metal');
+  if (!MapProps.put(ctx, 'fridge', 1.37, gf, -19.36, Math.PI)) ctx.G.geom(VLM.fridge, new RoundedBoxGeometry(0.72, 1.65, 0.72, 3, 0.1), new THREE.Matrix4().makeTranslation(1.37, gf + 0.825, -19.36));
+  ctx.solid(1.12, gf, -18.8, X1 - T, gf + 0.92, -18.1, 'metal');
+  if (!MapProps.put(ctx, 'stove', 1.445, gf, -18.45, Math.PI)) {
+    G.box(VLM.enamel, 1.12, gf, -18.8, X1 - T, gf + 0.92, -18.1);
+    for (const [x, z] of [[1.3, -18.25], [1.3, -18.65], [1.55, -18.25], [1.55, -18.65]]) gAt(ctx, MAT.iron, new THREE.CylinderGeometry(0.09, 0.09, 0.02, 10), x, gf + 0.93, z);
+  }
   ctx.block(VLM.formica, -1.8, gf + 0.72, -16.6, -0.4, gf + 0.78, -15.6);
   for (const [x, z] of [[-1.72, -16.52], [-0.48, -16.52], [-1.72, -15.68], [-0.48, -15.68]]) ctx.G.box(MAT.chrome, x - 0.02, gf, z - 0.02, x + 0.02, gf + 0.72, z + 0.02);
   ctx.solid(-1.8, gf, -16.6, -0.4, gf + 0.78, -15.6, 'wood', F_NORAY);
@@ -458,10 +472,15 @@ function vlHouse(ctx) {
     for (const [dx, dz] of [[-0.17, -0.17], [0.17, -0.17], [-0.17, 0.17], [0.17, 0.17]]) ctx.G.box(MAT.chrome, x + dx - 0.015, gf, z + dz - 0.015, x + dx + 0.015, gf + 0.44, z + dz + 0.015);
   }
   // upstairs: bed, wardrobe, dresser, toy chest, desk and boxes
-  ctx.block(MAT.woodDark, -9.7, uf, -15.8, -7.7, uf + 0.42, -14.0, { surf: 'wood' });
-  ctx.G.box(MAT.fabric('#f1ece0'), -9.65, uf + 0.42, -15.75, -7.75, uf + 0.56, -14.05);
-  ctx.G.box(MAT.fabric('#3d6f9e'), -9.0, uf + 0.5, -15.8, -7.7, uf + 0.6, -13.98);
-  ctx.G.box(MAT.woodDark, -9.75, uf, -15.85, -9.65, uf + 1.1, -13.95);
+  ctx.solid(-9.7, uf, -13.8, -7.8, uf + 0.6, -12.6, 'cloth');
+  if (!MapProps.put(ctx, 'bed', -8.75, uf, -13.2, 0)) {
+    G.box(MAT.woodDark, -9.7, uf, -13.8, -7.8, uf + 0.42, -12.6);
+    G.box(MAT.fabric('#f1ece0'), -9.65, uf + 0.42, -13.75, -7.85, uf + 0.56, -12.65);
+    G.box(MAT.fabric('#3d6f9e'), -9.0, uf + 0.5, -13.8, -7.8, uf + 0.6, -12.58);
+    G.box(MAT.woodDark, -9.75, uf, -13.85, -9.65, uf + 1.1, -12.55);
+  }
+  ctx.solid(-9.74, uf, -15.82, -9.2, uf + 1.0, -14.98, 'wood');
+  if (!MapProps.put(ctx, 'dresser', -9.47, uf, -15.4, 0)) G.box(MAT.woodDark, -9.74, uf, -15.82, -9.2, uf + 1.0, -14.98);
   ctx.block(MAT.woodDark, 0.6, uf, -15.85, X1 - T, uf + 2.0, -15.25, { surf: 'wood' });
   ctx.block(MAT.wood, -4.6, uf, -12.85, -3.0, uf + 0.85, -12.3, { surf: 'wood' });
   ctx.block(VLM.shutA, -6.4, uf, -15.75, -5.6, uf + 0.5, -15.2, { surf: 'wood' });
@@ -507,8 +526,11 @@ function vlInteriorTrim(ctx) {
 }
 
 // ---------------------------------------------------------------- props
+// test-site mannequin (GLB crash dummy, facing local +z like the procedural one)
 function vlMannequin(ctx, x, y, z, rot, pose = 0) {
   const L = vlLocal(ctx, x, z, rot, y), M = VLM.manq;
+  L.solid(-0.26, 0, -0.14, 0.26, 1.92, 0.14, 'cloth');
+  if (MapProps.put(ctx, 'dummy', x, y, z, rot - Math.PI / 2)) return;
   const cap = (r, l) => new THREE.CapsuleGeometry(r, l, 3, 10);
   for (const s of [-1, 1]) L.at(M, cap(0.07, 0.74), s * 0.1, 0.45, 0);
   L.at(M, new RoundedBoxGeometry(0.34, 0.2, 0.2, 2, 0.07), 0, 0.95, 0);
@@ -521,7 +543,6 @@ function vlMannequin(ctx, x, y, z, rot, pose = 0) {
     const lm = new THREE.Matrix4().compose(new THREE.Vector3(s * (up ? 0.3 : 0.24), up ? 1.75 : 1.2, 0), new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), up ? s * 2.7 : s * 0.12), new THREE.Vector3(1, 1, 1));
     L.geom(M, arm, lm);
   }
-  L.solid(-0.26, 0, -0.14, 0.26, 1.92, 0.14, 'cloth');
 }
 function vlFlamingo(ctx, x, z, rot) {
   const L = vlLocal(ctx, x, z, rot);
@@ -540,24 +561,27 @@ function vlGnome(ctx, x, z, rot) {
   L.at(VLM.gnomeRed, new THREE.ConeGeometry(0.085, 0.22, 12), 0, 0.42, 0);
 }
 function vlMailbox(ctx, x, z, rot) {
+  if (MapProps.put(ctx, 'mailbox', x, 0, z, rot - Math.PI / 2)) return;
   const L = vlLocal(ctx, x, z, rot);
   L.box(MAT.woodDark, -0.05, 0, -0.05, 0.05, 1.0, 0.05);
   L.at(MAT.iron, new RoundedBoxGeometry(0.24, 0.24, 0.48, 3, 0.1), 0, 1.1, 0);
   L.box(VLM.swingRed, 0.12, 1.05, 0.05, 0.14, 1.32, 0.09);
 }
 function vlHydrant(ctx, x, z) {
+  ctx.solid(x - 0.16, 0, z - 0.16, x + 0.16, 0.85, z + 0.16, 'metal');
+  if (MapProps.put(ctx, 'hydrant', x, 0, z, 0)) return;
   const p = VLM.swingRed;
   gAt(ctx, p, new THREE.CylinderGeometry(0.13, 0.15, 0.62, 14), x, 0.45, z);
   gAt(ctx, p, new THREE.SphereGeometry(0.14, 12, 8, 0, TAU, 0, Math.PI / 2), x, 0.76, z);
   const side = new THREE.CylinderGeometry(0.06, 0.06, 0.42, 10); side.rotateZ(Math.PI / 2);
   gAt(ctx, MAT.chrome, side, x, 0.58, z);
-  ctx.solid(x - 0.16, 0, z - 0.16, x + 0.16, 0.9, z + 0.16, 'metal');
 }
 function vlBbq(ctx, x, z) {
+  ctx.solid(x - 0.33, 0, z - 0.32, x + 0.33, 1.0, z + 0.32, 'metal');
+  if (MapProps.put(ctx, 'grill', x, 0, z, 0)) return;
   gAt(ctx, MAT.iron, new THREE.SphereGeometry(0.32, 16, 8, 0, TAU, Math.PI / 2, Math.PI / 2), x, 0.85, z);
   gAt(ctx, MAT.iron, new THREE.SphereGeometry(0.33, 16, 8, 0, TAU, 0, Math.PI / 2.2), x, 0.87, z);
   for (let i = 0; i < 3; i++) { const a = i * TAU / 3; rod(ctx, MAT.iron, [x + Math.cos(a) * 0.22, 0.6, z + Math.sin(a) * 0.22], [x + Math.cos(a) * 0.36, 0, z + Math.sin(a) * 0.36], 0.02); }
-  ctx.solid(x - 0.34, 0, z - 0.34, x + 0.34, 1.15, z + 0.34, 'metal');
 }
 function vlSwing(ctx, x0, x1, zc) {
   const R = VLM.swingRed, H = 2.3;
@@ -581,8 +605,12 @@ function vlShed(ctx, x0, z0, x1, z1) {
   fbox(ctx, F, MAT.woodDark, (z1 - z0) / 2 - 0.55, (z1 - z0) / 2 + 0.55, 0.05, 2.0, 0, 0.04);
   fbox(ctx, F, MAT.brass, (z1 - z0) / 2 + 0.35, (z1 - z0) / 2 + 0.42, 1.0, 1.08, 0.04, 0.08);
 }
+// 1950s caravan; local +x is the tow hitch. GLB body spans x -3.2..1.85, the hitch reaches +3.2
 function vlCamper(ctx, x, z, rot) {
   const L = vlLocal(ctx, x, z, rot);
+  L.solid(-3.2, 0, -1.06, 1.85, 2.3, 1.02);
+  L.solid(1.85, 0, -0.3, 3.0, 0.5, 0.25, 'metal', F_NORAY);
+  if (MapProps.put(ctx, 'caravan', x, 0, z, rot)) return;
   L.at(VLM.camper, new RoundedBoxGeometry(6.0, 2.35, 2.4, 4, 0.35), 0, 1.58, 0);
   L.box(VLM.stripe, -3.02, 1.25, -1.21, 3.02, 1.45, 1.21);
   for (const s of [-1, 1]) for (const wx of [-1.8, 0.4, 2.0]) L.box(MAT.glass, wx - 0.55, 1.75, s * 1.2 - 0.02, wx + 0.55, 2.3, s * 1.2 + 0.02);
@@ -591,31 +619,82 @@ function vlCamper(ctx, x, z, rot) {
   for (const s of [-1, 1]) vlWheel(L, -0.4, 0.38, s * 1.12, 0.38, 0.22, true);
   L.rod(MAT.iron, [3.0, 0.55, -0.5], [4.1, 0.45, 0], 0.04); L.rod(MAT.iron, [3.0, 0.55, 0.5], [4.1, 0.45, 0], 0.04);
   L.box(MAT.iron, 3.75, 0, -0.06, 3.87, 0.45, 0.06);
-  L.solid(-3.0, 0, -1.2, 3.0, 2.75, 1.2, 'metal');
 }
 function vlDoghouse(ctx, x, z, rot) {
   const L = vlLocal(ctx, x, z, rot);
-  L.box(VLM.shutB, -0.55, 0, -0.45, 0.55, 0.75, 0.45, { solid: true, surf: 'wood' });
+  L.solid(-0.47, 0, -0.53, 0.47, 0.85, 0.53, 'wood');
+  if (MapProps.put(ctx, 'doghouse', x, 0, z, rot - Math.PI / 2)) return;
+  L.box(VLM.shutB, -0.55, 0, -0.45, 0.55, 0.75, 0.45);
   L.box(MAT.dark, -0.2, 0.05, 0.45, 0.2, 0.55, 0.47);
   L.quad(MAT.woodDark, [-0.65, 0.7, 0.55], [0.65, 0.7, 0.55], [0.65, 1.1, 0], [-0.65, 1.1, 0]);
   L.quad(MAT.woodDark, [0.65, 0.7, -0.55], [-0.65, 0.7, -0.55], [-0.65, 1.1, 0], [0.65, 1.1, 0]);
 }
 function vlPicnic(ctx, x, z) {
-  ctx.block(MAT.wood, x - 0.95, 0.72, z - 0.42, x + 0.95, 0.78, z + 0.42, { surf: 'wood' });
-  for (const s of [-1, 1]) ctx.block(MAT.wood, x - 0.95, 0.42, z + s * 0.62 - 0.14, x + 0.95, 0.47, z + s * 0.62 + 0.14, { surf: 'wood' });
-  for (const sx of [-0.75, 0.75]) for (const s of [-1, 1]) ctx.G.box(MAT.woodDark, x + sx - 0.05, 0, z + s * 0.68 - 0.05, x + sx + 0.05, 0.75, z + s * 0.68 + 0.05);
-  ctx.solid(x - 0.95, 0, z - 0.42, x + 0.95, 0.72, z + 0.42, 'wood', F_NORAY);
+  ctx.solid(x - 0.79, 0.72, z - 0.42, x + 0.79, 0.78, z + 0.42, 'wood');
+  ctx.solid(x - 0.79, 0, z - 0.42, x + 0.79, 0.72, z + 0.42, 'wood', F_NORAY);
+  for (const s of [-1, 1]) ctx.solid(x - 0.79, 0.42, z + s * 0.66 - 0.13, x + 0.79, 0.47, z + s * 0.66 + 0.13, 'wood');
+  if (MapProps.put(ctx, 'picnic', x, 0, z, 0)) return;
+  ctx.G.box(MAT.wood, x - 0.79, 0.72, z - 0.42, x + 0.79, 0.78, z + 0.42);
+  for (const s of [-1, 1]) ctx.G.box(MAT.wood, x - 0.79, 0.42, z + s * 0.66 - 0.13, x + 0.79, 0.47, z + s * 0.66 + 0.13);
+  for (const sx of [-0.65, 0.65]) for (const s of [-1, 1]) ctx.G.box(MAT.woodDark, x + sx - 0.05, 0, z + s * 0.68 - 0.05, x + sx + 0.05, 0.75, z + s * 0.68 + 0.05);
 }
 function vlWoodpile(ctx, x, z) {
   const g = new THREE.CylinderGeometry(0.13, 0.13, 1.1, 8); g.rotateZ(Math.PI / 2);
   for (let r = 0; r < 4; r++) for (let i = 0; i < 6 - r; i++) gAt(ctx, MAT.bark, g, x, 0.13 + r * 0.23, z - 0.7 + (i + r * 0.5) * 0.26);
   ctx.solid(x - 0.55, 0, z - 0.85, x + 0.55, 0.95, z + 0.85, 'wood');
 }
+// galvanised trash can (GLB, lid leaning on its side); the collision covers the can only
+function vlTrash(ctx, x, z, rot = 0) {
+  ctx.solid(x - 0.3, 0, z - 0.3, x + 0.3, 0.78, z + 0.3, 'metal');
+  if (MapProps.put(ctx, 'trashCan', x, 0, z, rot)) return;
+  gAt(ctx, MAT.metal, new THREE.CylinderGeometry(0.27, 0.24, 0.72, 14), x, 0.36, z);
+  gAt(ctx, MAT.metal, new THREE.CylinderGeometry(0.29, 0.29, 0.05, 14), x, 0.745, z);
+}
+// GLB prop with a box collision in its local frame (yaw multiple of 90 degrees for the box)
+function vlProp(ctx, id, x, y, z, rot, box, surf = 'metal', flags = 0) {
+  if (box) vlLocal(ctx, x, z, rot, y).solid(box[0], 0, box[1], box[2], box[3], box[4], surf, flags);
+  MapProps.add(ctx, id, x, y, z, rot);
+}
+// power line along the north sidewalk of half A (mirrored to the south one): GLB poles (trunk at
+// local x -0.45 of the model, insulators at x -0.25, z +-0.65 / +-1.2, top 8.95 m); the wires are
+// drawn by vlDynamic without shadows (thin tubes only make shadow-map stripes)
+const VL_POLES = { xs: [-77, -49, -21, 7.5, 35, 63], z: -6.3 };
+const vlPoleY = (x) => (Math.abs(x) < 60 ? 0.14 : -0.1);
+function vlPowerLine(ctx) {
+  const z = VL_POLES.z;
+  for (const X of VL_POLES.xs) {
+    const y = vlPoleY(X);
+    ctx.solid(X - 0.15, 0, z - 0.15, X + 0.15, y + 8.6, z + 0.15, 'wood');
+    if (!MapProps.put(ctx, 'pole', X + 0.45, y, z, 0)) {
+      rod(ctx, MAT.woodDark, [X, y, z], [X, y + 9, z], 0.14, 8);
+      ctx.G.box(MAT.woodDark, X + 0.12, y + 8.55, z - 1.35, X + 0.28, y + 8.7, z + 1.35);
+    }
+  }
+}
+function vlWires() {
+  const { xs, z } = VL_POLES, geos = [];
+  for (const sgn of [1, -1]) for (let i = 0; i < xs.length - 1; i++) {
+    const ya = vlPoleY(xs[i]) + 8.93, yb = vlPoleY(xs[i + 1]) + 8.93;
+    for (const dz of [-1.2, -0.65, 0.65, 1.2]) {
+      const pts = [];
+      for (let k = 0; k <= 10; k++) { const t = k / 10; pts.push(new THREE.Vector3(sgn * (lerp(xs[i], xs[i + 1], t) + 0.2), lerp(ya, yb, t) - Math.sin(t * Math.PI) * 0.75, sgn * (z + dz))); }
+      geos.push(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 10, 0.014, 4, false));
+    }
+  }
+  const mesh = new THREE.Mesh(BufferGeometryUtils.mergeGeometries(geos), MAT.rubber);
+  mesh.name = 'wires'; mesh.castShadow = false; mesh.receiveShadow = false;
+  mesh.matrixAutoUpdate = false; mesh.updateMatrix();
+  return mesh;
+}
 
 // ---------------------------------------------------------------- vehicles
 // 1950s station wagon; local +x is the front
 function vlWagon(ctx, x, z, rot, paint) {
   const L = vlLocal(ctx, x, z, rot);
+  // collisions follow the GLB sedan (5.6 m Cadillac); the procedural wagon is the fallback
+  L.solid(-2.8, 0, -0.92, 2.8, 1.06, 0.92);
+  L.solid(-1.55, 1.06, -0.86, 1.15, 1.56, 0.86);
+  if (MapProps.put(ctx, 'sedan', x, 0, z, rot)) return;
   L.at(paint, new RoundedBoxGeometry(5.1, 0.6, 1.94, 3, 0.16), 0, 0.74, 0);
   for (const s of [-1, 1]) L.at(paint, new RoundedBoxGeometry(1.2, 0.16, 0.12, 2, 0.05), -1.95, 1.08, s * 0.9);
   L.at(VLM.carRoof, new RoundedBoxGeometry(3.0, 0.6, 1.78, 3, 0.14), -0.6, 1.32, 0);
@@ -625,31 +704,29 @@ function vlWagon(ctx, x, z, rot, paint) {
   L.box(MAT.chrome, -2.55, 0.86, -0.98, 2.55, 0.89, 0.98);
   for (const s of [-1, 1]) { L.at(MAT.lampGlass, new THREE.SphereGeometry(0.1, 10, 8), 2.5, 0.86, s * 0.7); L.box(VLM.swingRed, -2.56, 0.95, s * 0.9 - 0.06, -2.5, 1.12, s * 0.9 + 0.06); }
   for (const [wx, s] of [[1.62, -1], [1.62, 1], [-1.62, -1], [-1.62, 1]]) vlWheel(L, wx, 0.36, s * 0.9, 0.36, 0.24, true);
-  L.solid(-2.6, 0, -0.98, 2.6, 1.04, 0.98);
-  L.solid(-2.1, 1.04, -0.9, 0.9, 1.62, 0.9);
 }
-// old pickup in the middle of the street; local +x is the front
+// old pickup in the middle of the street; local +x is the front. Collisions follow the GLB stepside
+// (4.95 m: bed x -2.48..-0.4, cab -0.4..0.85, hood 0.85..2.48); the crate in the bed is always drawn
 function vlPickup(ctx, x, z, rot) {
   const L = vlLocal(ctx, x, z, rot), P = VLM.pickup;
-  L.box(MAT.iron, -2.7, 0.42, -0.85, 2.7, 0.72, 0.85);
-  L.at(P, new RoundedBoxGeometry(1.9, 0.62, 1.96, 3, 0.18), 1.82, 0.96, 0);
-  for (const s of [-1, 1]) L.at(P, new RoundedBoxGeometry(1.15, 0.5, 0.3, 3, 0.12), 1.9, 0.86, s * 0.9);
-  L.at(P, new RoundedBoxGeometry(1.5, 1.12, 1.96, 3, 0.16), 0.2, 1.3, 0);
-  L.at(MAT.glass, new RoundedBoxGeometry(1.52, 0.44, 1.98, 2, 0.12), 0.24, 1.56, 0);
-  L.box(MAT.wood, -2.72, 0.75, -0.92, -0.55, 0.95, 0.92);
-  for (const s of [-1, 1]) { L.box(P, -2.75, 0.95, s * 0.96 - 0.04, -0.55, 1.25, s * 0.96 + 0.04); L.at(P, new RoundedBoxGeometry(1.2, 0.48, 0.18, 3, 0.08), -1.75, 0.82, s * 1.0); }
-  L.box(P, -2.78, 0.95, -0.92, -2.7, 1.23, 0.92);
-  L.box(P, -0.63, 0.95, -0.92, -0.55, 1.45, 0.92);
-  L.at(MAT.chrome, new RoundedBoxGeometry(0.16, 0.18, 2.0, 2, 0.06), 2.85, 0.6, 0);
-  L.box(MAT.chrome, 2.74, 0.75, -0.55, 2.79, 1.12, 0.55);
-  for (const s of [-1, 1]) L.at(MAT.lampGlass, new THREE.SphereGeometry(0.11, 10, 8), 2.7, 1.12, s * 0.72);
-  for (const [wx, s] of [[1.85, -1], [1.85, 1], [-1.75, -1], [-1.75, 1]]) vlWheel(L, wx, 0.42, s * 0.95, 0.42, 0.26, false);
-  L.solid(0.95, 0, -1.0, 2.9, 1.27, 1.0);
-  L.solid(-0.55, 0, -1.0, 0.95, 1.86, 1.0);
-  L.solid(-2.78, 0, -1.0, -0.55, 0.95, 1.0, 'wood');
-  for (const s of [-1, 1]) L.solid(-2.78, 0.95, s * 0.96 - 0.04, -0.55, 1.25, s * 0.96 + 0.04);
-  L.solid(-2.78, 0.95, -0.92, -2.7, 1.23, 0.92);
-  L.box(MAT.crate, -2.66, 0.95, 0.32, -2.1, 1.5, 0.88, { solid: true, surf: 'wood', local: true });
+  L.solid(0.85, 0, -0.93, 2.48, 1.1, 0.93);
+  L.solid(-0.4, 0, -0.9, 0.85, 1.68, 0.9);
+  L.solid(-2.48, 0, -0.97, -0.4, 0.74, 0.97, 'wood');
+  for (const s of [-1, 1]) L.solid(-2.48, 0.74, s * 0.82 - 0.05, -0.4, 1.12, s * 0.82 + 0.05);
+  L.solid(-2.48, 0.74, -0.82, -2.4, 1.1, 0.82);
+  L.box(MAT.crate, -2.3, 0.74, 0.2, -1.76, 1.28, 0.74, { solid: true, surf: 'wood', local: true });
+  if (MapProps.put(ctx, 'pickup', x, 0, z, rot)) return;
+  L.box(MAT.iron, -2.45, 0.42, -0.8, 2.45, 0.72, 0.8);
+  L.at(P, new RoundedBoxGeometry(1.63, 0.62, 1.86, 3, 0.18), 1.66, 0.8, 0);
+  for (const s of [-1, 1]) L.at(P, new RoundedBoxGeometry(1.0, 0.45, 0.3, 3, 0.12), 1.7, 0.7, s * 0.82);
+  L.at(P, new RoundedBoxGeometry(1.25, 1.2, 1.8, 3, 0.16), 0.22, 1.08, 0);
+  L.at(MAT.glass, new RoundedBoxGeometry(1.27, 0.44, 1.82, 2, 0.12), 0.26, 1.42, 0);
+  L.box(MAT.wood, -2.46, 0.7, -0.8, -0.42, 0.74, 0.8);
+  for (const s of [-1, 1]) { L.box(P, -2.48, 0.74, s * 0.82 - 0.04, -0.4, 1.12, s * 0.82 + 0.04); L.at(P, new RoundedBoxGeometry(1.0, 0.42, 0.18, 3, 0.08), -1.55, 0.7, s * 0.9); }
+  L.box(P, -2.48, 0.74, -0.82, -2.4, 1.1, 0.82);
+  L.at(MAT.chrome, new RoundedBoxGeometry(0.14, 0.16, 1.9, 2, 0.06), 2.42, 0.5, 0);
+  for (const s of [-1, 1]) L.at(MAT.lampGlass, new THREE.SphereGeometry(0.1, 10, 8), 2.3, 0.95, s * 0.68);
+  for (const [wx, s] of [[1.6, -1], [1.6, 1], [-1.55, -1], [-1.55, 1]]) vlWheel(L, wx, 0.38, s * 0.85, 0.38, 0.24, false);
 }
 // school bus you can walk through; local +x is the front, door on the local +z side
 function vlBus(ctx, x, z, rot) {
@@ -780,13 +857,14 @@ function vlBuildHalfA(ctx) {
   // ---------------- west flank: camper, laundry, picnic table, doghouse
   vlPicket(ctx, 'z', -27.9, -20.3, -11.0, [[-24.2, -22.8]]);
   vlPicket(ctx, 'x', -27.9, -10.3, -12.6, [[-23.2, -21.8], [-15.2, -13.8]]);
-  vlCamper(ctx, -21.5, -24.4, 0);
+  vlCamper(ctx, -21.0, -24.4, 0);
   for (const xx of [-26.6, -17.4]) { rod(ctx, MAT.metal, [xx, 0, -19.2], [xx, 2.2, -19.2], 0.04); rod(ctx, MAT.metal, [xx, 2.15, -19.6], [xx, 2.15, -18.8], 0.03); ctx.solid(xx - 0.06, 0, -19.26, xx + 0.06, 2.2, -19.14, 'metal'); }
   laundryLine(ctx, [-26.6, 2.12, -19.2], [-17.4, 2.12, -19.2], 0.35);
   vlPicnic(ctx, -15.4, -16.0);
   tree(ctx, -23.5, -15.6, { h: 5.8, r: 2.8, trunkR: 0.3 });
   vlDoghouse(ctx, -13.0, -26.6, Math.PI / 2);
   vlWoodpile(ctx, -27.0, -14.8);
+  MapProps.add(ctx, 'tumbleweed', -27.25, 0, -21.2, 1.3);
   vlMannequin(ctx, -18.6, 0, -15.2, -Math.PI / 2, 0);
   // ---------------- front lawn: hedges, tree, mailbox, flamingos, gnome, lamps, hydrant
   vlHedge(ctx, -11.0, -18.6, -10.15, -13.4, 0.95);
@@ -799,7 +877,10 @@ function vlBuildHalfA(ctx) {
   vlSignPost(ctx, -12.5, -8.6, 0.0, VLM.signs.vendesi, 1.1, 0.55, 0.7);
   streetLamp(ctx, -14.0, -6.2); streetLamp(ctx, 14.0, -6.2);
   vlHydrant(ctx, -9.0, -6.4);
-  vlCat(ctx, 'bin', 8.9, 0, -7.6, 0, { c: '#4a5a4a' }); vlCat(ctx, 'bin', 9.6, 0, -7.7, 0, { c: '#4a5a4a' });
+  vlTrash(ctx, 8.85, -7.6, Math.PI + 0.3); vlTrash(ctx, 9.65, -7.75, 0.15);
+  MapProps.add(ctx, 'lawnChair', -1.25, 0, -8.75, -Math.PI / 2 + 0.25);
+  MapProps.add(ctx, 'lawnChair', -0.3, 0, -9.0, -Math.PI / 2 - 0.2);
+  vlPowerLine(ctx);
   vlWagon(ctx, 5.3, -9.35, Math.PI / 2, VLM.carA);
   vlWagon(ctx, -8.6, -2.65, Math.PI, VLM.carA);
   vlMannequin(ctx, -2.2, VL.gf, -10.7, 0, 0);
@@ -816,8 +897,11 @@ function vlBuildHalfA(ctx) {
   G.quad(emat('sand'), [-9.8, 0.255, -26.3], [-7.7, 0.255, -26.3], [-7.7, 0.255, -27.5], [-9.8, 0.255, -27.5]);
   vlShed(ctx, 5.6, -27.7, 9.6, -25.0);
   tree(ctx, 1.8, -26.6, { h: 5.0, r: 2.4, trunkR: 0.26 });
-  vlMannequin(ctx, -3.2, 0, -25.6, Math.PI, 1);
-  vlCat(ctx, 'bin', 3.4, 0, -20.6, 0, { c: '#3d5a7a' });
+  vlTrash(ctx, 3.4, -20.55, 1.0);
+  MapProps.add(ctx, 'lawnChair', 3.05, 0, -22.2, Math.PI - 0.35);
+  vlProp(ctx, 'propane', 4.9, 0, -27.3, 0, [-0.33, -0.33, 0.33, 1.2, 0.33]);
+  vlProp(ctx, 'drums', 7.4, 0, -20.0, 0, [-0.65, -0.6, 0.65, 0.95, 0.6]);
+  MapProps.add(ctx, 'jerryCan', 6.38, 0, -19.32, 0.15); MapProps.add(ctx, 'jerryCan', 6.66, 0, -19.3, -0.1);
   // ---------------- military yard (east): chain-link, containers, sandbags
   vlChain(ctx, 'z', -27.9, -12.2, 11.0, [[-24.7, -23.3], [-15.7, -14.3]]);
   vlChain(ctx, 'x', 11.0, 27.9, -12.2, [[17.3, 18.7]]);
@@ -833,7 +917,9 @@ function vlBuildHalfA(ctx) {
   vlCat(ctx, 'barrel', 12.3, 0, -13.2, 0); vlCat(ctx, 'barrel', 13.1, 0, -13.5, 0);
   vlCat(ctx, 'tires', 22.6, 0, -13.6, 0);
   vlCat(ctx, 'jersey', 23.0, 0, -20.0, Math.PI / 2);
-  vlSignPost(ctx, 11.3, -18.0, Math.PI / 2, VLM.signs.trefoil, 0.7, 0.7, 1.0);
+  if (MapProps.put(ctx, 'radSign', 11.35, 0, -18.0, 0)) { const L = vlLocal(ctx, 11.3, -18.0, Math.PI / 2); for (const sx of [-0.25, 0.25]) L.solid(sx - 0.04, 0, -0.04, sx + 0.04, 1.7, 0.04); }
+  else vlSignPost(ctx, 11.3, -18.0, Math.PI / 2, VLM.signs.trefoil, 0.7, 0.7, 1.0);
+  vlCat(ctx, 'barrel', 26.6, 0, -26.6, 0);
   vlSignPost(ctx, 22.0, -12.45, 0, VLM.signs.zona, 2.4, 0.6, 1.2);
   // ---------------- street ends: barricades
   for (const ex of [-27.5, 27.5]) {
@@ -879,6 +965,8 @@ function buildVillette(scene) {
   crate(F, 17.6, 0, -3.6, 1.1); crate(F, 17.6, 1.1, -3.6, 1.0); crate(F, 18.85, 0, -3.85, 0.9);
   vlCat(F, 'tires', 14.6, 0, 3.0, 0); vlCat(F, 'tires', -14.6, 0, -3.0, 0);
   vlCat(F, 'cone', -6.0, 0, 0.6, 0); vlCat(F, 'cone', 6.0, 0, -0.6, 0);
+  MapProps.add(F, 'tumbleweed', -3.9, 0, 3.5, 0.4); MapProps.add(F, 'tumbleweed', 11.6, 0, -4.3, 2.0);
+  MapProps.add(F, 'sandbags', 25.9, 0, 2.7, 0.2); // loose bags by the east barricade (low: no collision)
   for (const s of [-2.2, 2.2]) F.block(MAT.iron, 27.32, 0, s - 0.07, 27.46, 4.95, s + 0.07, { surf: 'metal' });
   F.G.box(VLM.stripe, 27.36, 2.25, -2.45, 27.5, 4.85, 2.45);
 
@@ -907,7 +995,7 @@ function buildVillette(scene) {
   const spawns = [];
   for (const s of VL_SPAWNS_A) { spawns.push({ x: s[0], y: s[1], z: s[2], team: s[3] }); spawns.push({ x: -s[0], y: s[1], z: -s[2], team: s[3] === 1 ? 2 : s[3] === 2 ? 1 : 0 }); }
   for (const s of spawns) s.yaw = Math.atan2(s.x, s.z);
-  return { group, world: W, lights, spawns, dynamic: vlDynamic, props: F.glb.concat(MapProps.mirrored(A.glb)) };
+  return { group, world: W, lights, spawns, dynamic: vlDynamic, props: F.glb.concat(A.glb, MapProps.mirrored(A.glb)) };
 }
 
 // the village sign counts the people still standing
@@ -919,6 +1007,7 @@ function vlDynamic(scene) {
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry(4.7, 2.5), mat);
   mesh.position.set(27.33, 3.55, 0); mesh.rotation.y = -Math.PI / 2;
   scene.add(mesh);
+  scene.add(vlWires());
   const draw = (n) => {
     g.fillStyle = '#2f7f7a'; g.fillRect(0, 0, 512, 288);
     g.strokeStyle = '#f3e7c8'; g.lineWidth = 10; g.strokeRect(14, 14, 484, 260);
@@ -1036,7 +1125,7 @@ function buildDesert(scene, q) {
   const jtL = new THREE.InstancedMesh(tuftGeo, new THREE.MeshStandardMaterial({ color: 0x5f6b3a, roughness: 0.85 }), nJ);
   for (let i = 0; i < nJ; i++) {
     let x, z;
-    do { const a = rng() * TAU, r = 45 + Math.pow(rng(), 0.7) * 600; x = Math.cos(a) * r; z = Math.sin(a) * r; } while (Math.abs(z) < 10);
+    do { const a = rng() * TAU, r = 115 + Math.pow(rng(), 0.7) * 540; x = Math.cos(a) * r; z = Math.sin(a) * r; } while (Math.abs(z) < 10);
     const s = 0.8 + rng() * 0.7;
     m4.compose(p3.set(x, heightAt(x, z) - 0.1, z), qt.setFromAxisAngle(UP, rng() * TAU), sc.set(s, s, s));
     jtT.setMatrixAt(i, m4); jtL.setMatrixAt(i, m4);
@@ -1064,15 +1153,18 @@ function buildDesert(scene, q) {
   // water tower, test tower, quonset huts, more test houses down the road
   const G = new GeoBuilder();
   const ctx = { G };
-  const wtx = -78, wtz = -82, wty = heightAt(wtx, wtz) - 0.2;
-  const steel = new THREE.MeshStandardMaterial({ color: 0xc9c3b5, roughness: 0.55, metalness: 0.4 }); steel.userData.uvScale = 2;
-  for (const [dx, dz] of [[-3, -3], [3, -3], [3, 3], [-3, 3]]) rod(ctx, steel, [wtx + dx * 1.25, wty, wtz + dz * 1.25], [wtx + dx * 0.8, wty + 17, wtz + dz * 0.8], 0.22, 8);
-  for (const y of [5, 11]) for (const [a, b] of [[[-3, -3], [3, -3]], [[3, -3], [3, 3]], [[3, 3], [-3, 3]], [[-3, 3], [-3, -3]]]) {
-    const f = 1.25 - (y / 17) * 0.45;
-    rod(ctx, steel, [wtx + a[0] * f, wty + y, wtz + a[1] * f], [wtx + b[0] * f, wty + y, wtz + b[1] * f], 0.09, 6);
+  const props = { glb: [] };
+  const wtx = -64, wtz = -68, wty = heightAt(wtx, wtz) - 0.2;
+  if (!MapProps.put(props, 'waterTower', wtx, wty, wtz, 0.5)) {
+    const steel = new THREE.MeshStandardMaterial({ color: 0xc9c3b5, roughness: 0.55, metalness: 0.4 }); steel.userData.uvScale = 2;
+    for (const [dx, dz] of [[-3, -3], [3, -3], [3, 3], [-3, 3]]) rod(ctx, steel, [wtx + dx * 1.25, wty, wtz + dz * 1.25], [wtx + dx * 0.8, wty + 17, wtz + dz * 0.8], 0.22, 8);
+    for (const y of [5, 11]) for (const [a, b] of [[[-3, -3], [3, -3]], [[3, -3], [3, 3]], [[3, 3], [-3, 3]], [[-3, 3], [-3, -3]]]) {
+      const f = 1.25 - (y / 17) * 0.45;
+      rod(ctx, steel, [wtx + a[0] * f, wty + y, wtz + a[1] * f], [wtx + b[0] * f, wty + y, wtz + b[1] * f], 0.09, 6);
+    }
+    G.geom(steel, new THREE.CylinderGeometry(4.3, 4.3, 5.2, 28), new THREE.Matrix4().makeTranslation(wtx, wty + 19.6, wtz));
+    G.geom(steel, new THREE.ConeGeometry(4.5, 1.8, 28), new THREE.Matrix4().makeTranslation(wtx, wty + 23.1, wtz));
   }
-  G.geom(steel, new THREE.CylinderGeometry(4.3, 4.3, 5.2, 28), new THREE.Matrix4().makeTranslation(wtx, wty + 19.6, wtz));
-  G.geom(steel, new THREE.ConeGeometry(4.5, 1.8, 28), new THREE.Matrix4().makeTranslation(wtx, wty + 23.1, wtz));
   const tx = 330, tz = -470, ty = heightAt(tx, tz) - 0.3, TH = 34;
   for (const [dx, dz] of [[-1, -1], [1, -1], [1, 1], [-1, 1]]) rod(ctx, MAT.iron, [tx + dx * 4, ty, tz + dz * 4], [tx + dx * 1.4, ty + TH, tz + dz * 1.4], 0.25, 6);
   for (let y = 4; y < TH; y += 5) {
@@ -1098,6 +1190,39 @@ function buildDesert(scene, q) {
   });
   hm.receiveShadow = true;
   group.add(hm, rm);
+  // GLB desert props near the village (own rng: the scatter above keeps its layout)
+  const r2 = mulberry32(4471);
+  const spot = (rMin, rMax) => {
+    for (let g = 0; g < 80; g++) {
+      const a = r2() * TAU, r = rMin + Math.pow(r2(), 0.9) * (rMax - rMin), x = Math.cos(a) * r, z = Math.sin(a) * r;
+      if ((Math.abs(x) < 33 && Math.abs(z) < 33) || Math.abs(z) < 10) continue;
+      if (lots.some(([lx, lz]) => Math.abs(lx - x) < 9 && Math.abs(lz - z) < 8) || Math.hypot(x - wtx, z - wtz) < 6) continue;
+      return [x, z];
+    }
+    return null;
+  };
+  const strew = (id, n, rMin, rMax, sMin, sMax, sink = 0.05) => {
+    for (let i = 0; i < n; i++) {
+      const p = spot(rMin, rMax);
+      if (!p) continue;
+      const s = sMin + r2() * (sMax - sMin);
+      MapProps.add(props, id, p[0], heightAt(p[0], p[1]) - sink * s, p[1], r2() * TAU, { s });
+    }
+  };
+  strew('joshuaA', 5, 36, 110, 0.8, 1.3); strew('joshuaB', 4, 36, 110, 0.8, 1.25);
+  strew('saguaroA', 3, 45, 130, 0.85, 1.2, 0.1); strew('saguaroB', 5, 38, 110, 0.7, 1.4, 0.1);
+  strew('tumbleweed', 5, 34, 70, 0.7, 1.2, 0.08);
+  strew('dryBush', 70, 34, 180, 0.6, 1.6, 0.1);
+  strew('rocks', 2, 90, 170, 4, 6, 0.15);
+  // the abandoned Hudson at the roadside east of the village, radiation signs on the road
+  // its single material is transmissive (three.js would redraw the scene for it every frame): the
+  // wreck is drawn opaque, so it waits for its file (map rebuilt on arrival) instead of loading late
+  if (MapProps.ready('hudson')) {
+    for (const { mat } of MapProps.proto('hudson').parts) if (mat.transmission > 0) { mat.transmission = 0; mat.needsUpdate = true; }
+    MapProps.add(props, 'hudson', 38.5, heightAt(38.5, -12.6) - 0.06, -12.6, 0.45);
+  } else MapProps.put(props, 'hudson', 0, 0, 0, 0);
+  MapProps.add(props, 'radSign', 34.5, heightAt(34.5, 8.2), 8.2, 0);
+  MapProps.add(props, 'radSign', -34.5, heightAt(-34.5, -8.2), -8.2, Math.PI);
   scene.add(group);
-  return { group, heightAt };
+  return { group, heightAt, props: props.glb };
 }

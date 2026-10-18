@@ -48,7 +48,9 @@ function buildMap(scene) {
   for (const s of SPAWNS_A) { spawns.push({ x: s[0], y: s[1], z: s[2], team: s[3] }); spawns.push({ x: -s[0], y: s[1], z: -s[2], team: s[3] === 1 ? 2 : s[3] === 2 ? 1 : 0 }); }
   // yaw facing the map centre
   for (const s of spawns) s.yaw = Math.atan2(-(0 - s.x), -(0 - s.z));
-  return { group, world: W, lights, spawns, water: F.water, flag: F.flag };
+  // GLB props: half A, its copy rotated like the geometry, then the unique pieces
+  const props = A.glb.concat(MapProps.mirrored(A.glb), F.glb);
+  return { group, world: W, lights, spawns, water: F.water, flag: F.flag, props };
 }
 
 // Animated pieces that are not static geometry: fountain water, flag, lamps glow
@@ -210,6 +212,14 @@ function buildBackdrop(scene, q) {
   const tower = new THREE.Mesh(new THREE.BoxGeometry(7, towerH, 7), new THREE.MeshStandardMaterial({ color: 0xb59474, roughness: 0.9 }));
   tower.position.set(townX + 5, tb + towerH / 2, townZ - 4);
   group.add(tower);
+  // a few modelled cypresses (GLB, no shadows) along the lanes just outside the village; the rest stay instanced
+  const props = { glb: [] };
+  for (const [x0, z0, x1, z1, k] of [[-70, -84, -86, -100, 3], [74, 80, 90, 96, 3]]) {
+    for (let i = 0; i < k; i++) {
+      const t = i / (k - 1), x = lerp(x0, x1, t), z = lerp(z0, z1, t);
+      MapProps.add(props, 'cypress', x, heightAt(x, z) - 0.3, z, i * 2.1, { s: 1.15 + 0.2 * Math.sin(i * 1.7) });
+    }
+  }
   scene.add(group);
-  return { group, heightAt };
+  return { group, heightAt, props: props.glb };
 }

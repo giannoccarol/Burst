@@ -65,15 +65,17 @@ function buildHalfA(ctx) {
   // garden wall at the north boundary behind the little garden
   ctx.block(MAT.rubble, -22, 0, -46.6, -14, 2.4, -46);
   well(ctx, -25, -33);
-  tree(ctx, -18.6, -37.4, { h: 4.6, r: 2.4, leaves: MAT.leaves, cards: 46, trunkR: 0.26 });
+  cypress(ctx, -18.6, -37.4, 0.95, { h: 4.6, r: 2.4, leaves: MAT.leaves, cards: 46, trunkR: 0.26 });
   crate(ctx, -31.8, 0, -28.4, 1.1); crate(ctx, -30.6, 0, -28.6, 1.0); crate(ctx, -31.3, 1.1, -28.5, 0.9);
-  barrel(ctx, -33.1, -37.5); barrel(ctx, -32.2, -38.4);
+  // cantina door (z -39): wine barrels against the wall, taps toward the courtyard; an old wreck further on
+  wineBarrel(ctx, -33.38, -37.8, 0); wineBarrel(ctx, -33.38, -36.85, 0);
+  car132(ctx, -32.4, -32.2, Math.PI / 2 + 0.1);
   pottedPlant(ctx, -24.4, -39.4, 1.1, true); pottedPlant(ctx, -27.6, -39.4, 1.1, true);
-  bench(ctx, -20.5, -29.0, 'x', 2.2);
+  bench(ctx, -20.5, -29.0, 'x', '-z');
   // side steps up to the sagrato (y=SY) at x=-14
   stairs(ctx, 'x', 1, -15.8, -32.2, -29.2, 0, SY, 0.3);
   // ---------------- north street side: low wall between courtyard and street? (open) ----------------
-  streetLamp(ctx, -27.6, -25.4);
+  streetLamp(ctx, -27.6, -25.4, -Math.PI / 2);
   // ---------------- NW building with the café ----------------
   // upper volume
   house(ctx, {
@@ -171,6 +173,7 @@ function buildHalfA(ctx) {
   // outdoor café tables on the piazza
   cafeSet(ctx, -11.9, -10.8, true); cafeSet(ctx, -11.6, -4.3, true);
   pottedPlant(ctx, -13.4, -8.9, 0.9); pottedPlant(ctx, -13.4, -5.8, 0.9);
+  floorSign(ctx, -13.1, -9.95, 0);
 
   // ---------------- arch passage ----------------
   {
@@ -221,6 +224,8 @@ function buildHalfA(ctx) {
     pottedPlant(ctx, -15.0, 13.2, 1.0, true); pottedPlant(ctx, -15.0, -1.5, 0.9);
     crate(ctx, -18.5, TY, 12.9, 1.0);
     crate(ctx, -16.8, TY, 3.6, 1.0);
+    // geraniums at the two corners of the parapet over the piazza
+    geraniumPlanter(ctx, -14.15, TY + 1.12, -1.9); geraniumPlanter(ctx, -14.15, TY + 1.12, 13.4);
     // tall house at the south end (z 14..20)
     house(ctx, {
       x0: -27, z0: 14, x1: -14, z1: 20, h: 9.6, color: 'giallo', shutter: 'marrone', roof: 'gable-x', roofH: 1.6, skip: 'e',
@@ -248,8 +253,9 @@ function buildHalfA(ctx) {
   }
   // ---------------- west alley props ----------------
   crate(ctx, -32.6, 0, -11.0, 1.1); crate(ctx, -31.4, 0, -11.2, 1.0); crate(ctx, -32.1, 1.1, -11.1, 0.95);
-  barrel(ctx, -33.3, 4.6); barrel(ctx, -33.3, 5.5); barrel(ctx, -32.4, 5.1);
-  vespa(ctx, -32.9, -4.6, Math.PI / 2 + 0.15);
+  barrelRow(ctx, -33.5, 5.1, Math.PI / 2);
+  vespa(ctx, -32.9, -4.6, Math.PI / 2 + 0.15); vespa(ctx, -33.0, -6.75, Math.PI / 2 - 0.2);
+  bicycle(ctx, -27.25, -5.4, Math.PI / 2);
   pottedPlant(ctx, -33.4, -17.6, 0.9); pottedPlant(ctx, -33.4, -26.6 + 0.3, 1.0);
   crate(ctx, -30.0, 0, 15.6, 1.1);
   laundryLine(ctx, [-34, 6.4, -14.5], [-27, 6.0, -14.2], 0.45);
@@ -281,19 +287,20 @@ function buildHalfA(ctx) {
     for (const pz of [30, 38]) G.box(MAT.wood, -24.3, 2.7, pz - 0.1, -15.7, 2.9, pz + 0.1);
     for (let px = -24; px <= -16; px += 0.7) G.box(MAT.wood, px - 0.05, 2.9, 29.7, px + 0.05, 3.0, 38.3);
     for (let i = 0; i < 9; i++) leafBall(ctx, -23.6 + i * 0.95, 3.15, 34, 1.4, 16, MAT.leaves2, 0.3);
-    bench(ctx, -20, 31.2, 'x', 2.2);
+    bench(ctx, -20, 31.2, 'x', '+z');
     cafeSet(ctx, -20, 34.5, false);
     // garden low walls (cover)
     ctx.block(MAT.rubble, -14.6, 0, 27.5, -14.0, 1.0, 33.5);
     G.box(MAT.stoneTrim, -14.66, 1.0, 27.5, -13.94, 1.08, 33.5);
     ctx.block(MAT.rubble, -27.5, 0, 26.6, -24.0, 1.0, 27.2);
     G.box(MAT.stoneTrim, -27.5, 1.0, 26.54, -24.0, 1.08, 27.26);
-    tree(ctx, -17.2, 42.6, { h: 5.0, r: 2.6, leaves: MAT.leaves, cards: 44 });
-    barrel(ctx, -24.8, 41.2 - 0.6);
+    cypress(ctx, -17.2, 42.6, 1.05, { h: 5.0, r: 2.6, leaves: MAT.leaves, cards: 44 });
+    // by the garden door
+    terracottaPots(ctx, -25.6, 39.6, 0); amphora(ctx, -22.9, 39.65);
   }
   // car in the south street
   car500(ctx, -21.5, 23.3, 0.04);
-  streetLamp(ctx, -27.6, 25.6);
+  streetLamp(ctx, -27.6, 25.6, Math.PI / 2);
 
   // ---------------- north centre: sagrato (raised), farmacia, forno ----------------
   {
@@ -305,8 +312,7 @@ function buildHalfA(ctx) {
     // low parapet along west edge except at side steps
     ctx.block(MAT.stoneTrim, -14.15, SY, -34, -13.85, SY + 0.55, -32.2);
     ctx.block(MAT.stoneTrim, -14.15, SY, -29.2, -13.85, SY + 0.55, -26.3);
-    streetLamp(ctx, -12.6, -27.2); streetLamp(ctx, 12.6, -27.2);
-    // the lamps stand on the sagrato: lift them
+    streetLamp(ctx, -12.6, -27.2, -Math.PI / 2, SY); streetLamp(ctx, 12.6, -27.2, -Math.PI / 2, SY);
   }
   house(ctx, {
     x0: -14, z0: -20, x1: -6, z1: -13, h: 7.2, color: 'crema', shutter: 'verdescuro', roof: 'gable-x', skip: 'w',
@@ -338,10 +344,12 @@ function buildHalfA(ctx) {
   kiosk(ctx, -9.4, -8.4, 0.35);
   marketStall(ctx, 8.4, -7.6, -0.25, MAT.awningRed);
   crate(ctx, 10.8, 0, -5.2, 1.0); crate(ctx, 11.9, 0, -5.6, 0.9); crate(ctx, 11.3, 1.0, -5.4, 0.8);
-  bench(ctx, -4.6, -7.0, 'x', 2.2); bench(ctx, 4.6, -7.0, 'x', 2.2);
+  woodBoxes(ctx, 10.77, -6.38, -0.25); // produce boxes at the stall's end
+  bench(ctx, -4.6, -7.0, 'x', '+z'); bench(ctx, 4.6, -7.0, 'x', '+z');
   tree(ctx, 11.4, -10.9, { h: 6.5, r: 3.4, leaves: MAT.leaves2, cards: 60, trunkR: 0.3 });
   for (const bx of [-5.2, -3.4, 3.4, 5.2]) bollard(ctx, bx, -13.4);
-  streetLamp(ctx, -13.2, -12.4); streetLamp(ctx, 13.0, -12.2);
+  streetLamp(ctx, -13.2, -12.4, 0); streetLamp(ctx, 13.0, -12.2, Math.PI);
+  bicycle(ctx, -5.78, -16.6, Math.PI / 2);
   signBoard(ctx, facade(-14, -20, -6, -13, 's'), 0.95, 3.3, 1.6, 0.27, SIGNS.piazza, 0.03);
   pottedPlant(ctx, 6.6, -12.6, 1.0); pottedPlant(ctx, -6.6, -12.6, 1.0);
 

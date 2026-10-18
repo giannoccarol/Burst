@@ -281,26 +281,26 @@
     "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, materiali convertiti); posizionato e animato via codice."
   },
   {
-    "id": "p_pickup_rancher50",
-    "use": "Villette: pick-up in strada",
-    "title": "Rancher '50 Custom - Low Poly model",
-    "author": "Daniel Zhabotinsky",
-    "authorUrl": "https://sketchfab.com/DanielZhabotinsky",
-    "url": "https://sketchfab.com/3d-models/rancher-50-custom-low-poly-model-7f75854aba96417f8279bd9f1b24e6b2",
+    "id": "p_saguaro_a",
+    "use": "Villette: cactus saguaro",
+    "title": "Realistic HD Saguaro cactus (27/30)",
+    "author": "PlantCatalog",
+    "authorUrl": "https://sketchfab.com/PlantCatalog",
+    "url": "https://sketchfab.com/3d-models/realistic-hd-saguaro-cactus-2730-124202937a8c45e091f3af365446a087",
     "license": "CC Attribution",
     "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
-    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, parti rimosse); posizionato e animato via codice."
   },
   {
-    "id": "p_sedan_cadillac_dirty",
-    "use": "Villette: berlina parcheggiata",
-    "title": "Dirty Car - Cadillac 75 Sedan 1953",
-    "author": "ROH3D",
-    "authorUrl": "https://sketchfab.com/roh3d",
-    "url": "https://sketchfab.com/3d-models/dirty-car-cadillac-75-sedan-1953-e08f2486cc0c49a7a2102561fb9b3377",
+    "id": "p_saguaro_b",
+    "use": "Villette: cactus saguaro",
+    "title": "Realistic HD Saguaro cactus (21/30)",
+    "author": "PlantCatalog",
+    "authorUrl": "https://sketchfab.com/PlantCatalog",
+    "url": "https://sketchfab.com/3d-models/realistic-hd-saguaro-cactus-2130-7c32d298ad2e4251b72b1ddc84a7769d",
     "license": "CC Attribution",
     "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
-    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, parti rimosse); posizionato e animato via codice."
   },
   {
     "id": "p_caravan_50s",
@@ -309,6 +309,50 @@
     "author": "Libau Media",
     "authorUrl": "https://sketchfab.com/robinmikart",
     "url": "https://sketchfab.com/3d-models/free-1950s-american-caravan-a414984c0fab4e9aafb67df67ff1b221",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, parti rimosse); posizionato e animato via codice."
+  },
+  {
+    "id": "p_pickup_rancher50",
+    "use": "Villette: pick-up in strada",
+    "title": "Rancher '50 Custom - Low Poly model",
+    "author": "Daniel Zhabotinsky",
+    "authorUrl": "https://sketchfab.com/DanielZhabotinsky",
+    "url": "https://sketchfab.com/3d-models/rancher-50-custom-low-poly-model-7f75854aba96417f8279bd9f1b24e6b2",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, parti rimosse); posizionato e animato via codice."
+  },
+  {
+    "id": "p_desert_rocks",
+    "use": "Villette: rocce",
+    "title": "Desert | Rocks | Stones | Pack",
+    "author": "YadroGames",
+    "authorUrl": "https://sketchfab.com/yadrogames",
+    "url": "https://sketchfab.com/3d-models/desert-rocks-stones-pack-c2208f5ccc004f1681d27de67fe75799",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, parti rimosse); posizionato e animato via codice."
+  },
+  {
+    "id": "p_joshua_tree_a",
+    "use": "Villette: albero di Giosuè",
+    "title": "Realistic HD Joshua tree (16/30)",
+    "author": "PlantCatalog",
+    "authorUrl": "https://sketchfab.com/PlantCatalog",
+    "url": "https://sketchfab.com/3d-models/realistic-hd-joshua-tree-1630-dfc4e44979254dc8853f06e06bc8f24a",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, parti rimosse); posizionato e animato via codice."
+  },
+  {
+    "id": "p_sedan_cadillac_dirty",
+    "use": "Villette: berlina parcheggiata",
+    "title": "Dirty Car - Cadillac 75 Sedan 1953",
+    "author": "ROH3D",
+    "authorUrl": "https://sketchfab.com/roh3d",
+    "url": "https://sketchfab.com/3d-models/dirty-car-cadillac-75-sedan-1953-e08f2486cc0c49a7a2102561fb9b3377",
     "license": "CC Attribution",
     "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
     "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
@@ -468,45 +512,12 @@
     "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
   },
   {
-    "id": "p_joshua_tree_a",
-    "use": "Villette: albero di Giosuè",
-    "title": "Realistic HD Joshua tree (16/30)",
-    "author": "PlantCatalog",
-    "authorUrl": "https://sketchfab.com/PlantCatalog",
-    "url": "https://sketchfab.com/3d-models/realistic-hd-joshua-tree-1630-dfc4e44979254dc8853f06e06bc8f24a",
-    "license": "CC Attribution",
-    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
-    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
-  },
-  {
     "id": "p_joshua_tree_b",
     "use": "Villette: albero di Giosuè",
     "title": "Realistic HD Joshua tree (11/30)",
     "author": "PlantCatalog",
     "authorUrl": "https://sketchfab.com/PlantCatalog",
     "url": "https://sketchfab.com/3d-models/realistic-hd-joshua-tree-1130-610be73b60fb4477bffdd1bed5b4950f",
-    "license": "CC Attribution",
-    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
-    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
-  },
-  {
-    "id": "p_saguaro_a",
-    "use": "Villette: cactus saguaro",
-    "title": "Realistic HD Saguaro cactus (27/30)",
-    "author": "PlantCatalog",
-    "authorUrl": "https://sketchfab.com/PlantCatalog",
-    "url": "https://sketchfab.com/3d-models/realistic-hd-saguaro-cactus-2730-124202937a8c45e091f3af365446a087",
-    "license": "CC Attribution",
-    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
-    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
-  },
-  {
-    "id": "p_saguaro_b",
-    "use": "Villette: cactus saguaro",
-    "title": "Realistic HD Saguaro cactus (21/30)",
-    "author": "PlantCatalog",
-    "authorUrl": "https://sketchfab.com/PlantCatalog",
-    "url": "https://sketchfab.com/3d-models/realistic-hd-saguaro-cactus-2130-7c32d298ad2e4251b72b1ddc84a7769d",
     "license": "CC Attribution",
     "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
     "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
@@ -529,17 +540,6 @@
     "author": "Luis Gustavo",
     "authorUrl": "https://sketchfab.com/Luissantos2",
     "url": "https://sketchfab.com/3d-models/dry-bush-1c2983644d6243f7993c3d8cbd11fe0d",
-    "license": "CC Attribution",
-    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
-    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
-  },
-  {
-    "id": "p_desert_rocks",
-    "use": "Villette: rocce",
-    "title": "Desert | Rocks | Stones | Pack",
-    "author": "YadroGames",
-    "authorUrl": "https://sketchfab.com/yadrogames",
-    "url": "https://sketchfab.com/3d-models/desert-rocks-stones-pack-c2208f5ccc004f1681d27de67fe75799",
     "license": "CC Attribution",
     "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
     "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
@@ -661,17 +661,6 @@
     "author": "ROH3D",
     "authorUrl": "https://sketchfab.com/roh3d",
     "url": "https://sketchfab.com/3d-models/abandoned-car-fiat-132-40ecf745664846bba3f7331b11cd99f8",
-    "license": "CC Attribution",
-    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
-    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
-  },
-  {
-    "id": "p_cafe_set",
-    "use": "Borgo: tavolino del bar",
-    "title": "Cafe set",
-    "author": "lukasvop",
-    "authorUrl": "https://sketchfab.com/lukasvop",
-    "url": "https://sketchfab.com/3d-models/cafe-set-c281ef0acaa04375a502c56649f32ed8",
     "license": "CC Attribution",
     "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
     "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
@@ -862,5 +851,16 @@
     "license": "CC Attribution",
     "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
     "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
+  },
+  {
+    "id": "p_cafe_set",
+    "use": "Borgo: tavolino del bar",
+    "title": "Cafe set",
+    "author": "lukasvop",
+    "authorUrl": "https://sketchfab.com/lukasvop",
+    "url": "https://sketchfab.com/3d-models/cafe-set-c281ef0acaa04375a502c56649f32ed8",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, parti rimosse); posizionato e animato via codice."
   }
 ]

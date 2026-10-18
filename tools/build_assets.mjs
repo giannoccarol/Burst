@@ -47,30 +47,39 @@ export const MODELS = [
     ['navy', 'Soldato: blu marina'], ['mechanic', 'Soldato: tecnico'], ['swat', 'Soldato: squadra speciale'],
   ].map(([v, use]) => ({ id: 'soldier_' + v, src: 'soldier_' + v, character: true, use, tex: PER_PART.has(v) ? 768 : 1024 })),
   // map props (assets/src/props/<slug>/, see assets/src/props/manifest.json): p_<slug>.glb, placed by MapProps
+  // Villette saguaros: the spine cards are alpha-blended (black once opaque): drop them, the bark reads fine
+  { id: 'p_saguaro_a', src: 'props/saguaro_a', tex: 512, use: 'Villette: cactus saguaro', prop: true, drop: /spines/i, simplify: 0.5 },
+  { id: 'p_saguaro_b', src: 'props/saguaro_b', tex: 512, use: 'Villette: cactus saguaro', prop: true, drop: /spines/i },
+  // fewer materials (= draw calls): caravan without the bedding and cabinets inside, pickup without
+  // badges, the rock pack without the pebbles, the young Joshua tree without its two tiny leaf sets
+  { id: 'p_caravan_50s', src: 'props/caravan_50s', tex: 512, use: 'Villette: roulotte', prop: true, simplify: 0.6, drop: /^Object_(10|11|15|16|17|18|19|20|21)$/ },
+  { id: 'p_pickup_rancher50', src: 'props/pickup_rancher50', tex: 1024, use: 'Villette: pick-up in strada', prop: true, drop: /Badges/ },
+  { id: 'p_desert_rocks', src: 'props/desert_rocks', tex: 512, use: 'Villette: rocce', prop: true, drop: /small_rock/i },
+  { id: 'p_joshua_tree_a', src: 'props/joshua_tree_a', tex: 512, use: 'Villette: albero di Giosuè', prop: true, drop: /leaf 01 H[23]/ },
   ...[
     // Villette
-    ['pickup_rancher50', 1024, 'Villette: pick-up in strada'], ['sedan_cadillac_dirty', 1024, 'Villette: berlina parcheggiata'],
-    ['caravan_50s', 512, 'Villette: roulotte'], ['hudson_abandoned', 512, 'Villette: relitto nel deserto'],
+    ['sedan_cadillac_dirty', 1024, 'Villette: berlina parcheggiata', 0.5], ['hudson_abandoned', 512, 'Villette: relitto nel deserto'],
     ['mailbox', 512, 'Villette: cassetta delle lettere'], ['lawn_chair', 512, 'Villette: sedia da giardino'],
     ['charcoal_grill', 512, 'Villette: barbecue'], ['picnic_table', 512, 'Villette: tavolo da picnic'],
-    ['doghouse', 512, 'Villette: cuccia'], ['fire_hydrant', 512, 'Villette: idrante'], ['crash_dummy', 512, 'Villette: manichino'],
+    ['doghouse', 512, 'Villette: cuccia'], ['fire_hydrant', 512, 'Villette: idrante'], ['crash_dummy', 512, 'Villette: manichino', 0.25],
     ['sofa_50s', 512, 'Villette: divano'], ['tv_retro', 512, 'Villette: televisore'], ['fridge_50s', 512, 'Villette: frigorifero'],
-    ['gas_stove', 512, 'Villette: cucina a gas'], ['bed_metal', 512, 'Villette: letto'], ['dresser', 512, 'Villette: cassettiera'],
-    ['joshua_tree_a', 512, 'Villette: albero di Giosuè'], ['joshua_tree_b', 512, 'Villette: albero di Giosuè'],
-    ['saguaro_a', 512, 'Villette: cactus saguaro', 0.5], ['saguaro_b', 512, 'Villette: cactus saguaro'],
-    ['tumbleweed', 512, 'Villette: rotolacampo'], ['dry_bush', 512, 'Villette: cespuglio secco'], ['desert_rocks', 512, 'Villette: rocce'],
-    ['water_tower', 512, 'Villette: torre dell\'acqua'], ['sandbags', 512, 'Villette: sacchi di sabbia'], ['oil_drums', 512, 'Villette: fusti'],
+    ['gas_stove', 512, 'Villette: cucina a gas', 0.25], ['bed_metal', 512, 'Villette: letto'], ['dresser', 512, 'Villette: cassettiera', 0.35],
+    ['joshua_tree_b', 512, 'Villette: albero di Giosuè'],
+    ['tumbleweed', 512, 'Villette: rotolacampo', 0.4], ['dry_bush', 512, 'Villette: cespuglio secco'],
+    ['water_tower', 512, 'Villette: torre dell\'acqua'], ['sandbags', 512, 'Villette: sacchi di sabbia'], ['oil_drums', 512, 'Villette: fusti', 0.5],
     ['propane_tank', 512, 'Villette: bombola del gas'], ['trash_can', 512, 'Villette: bidone'], ['radiation_sign', 512, 'Villette: cartello radiazioni'],
-    ['electric_pole', 512, 'Villette: palo della luce'], ['jerry_can', 512, 'Villette: tanica'],
+    ['electric_pole', 512, 'Villette: palo della luce'], ['jerry_can', 512, 'Villette: tanica', 0.4],
     // Borgo
-    ['vespa_worn', 512, 'Borgo: scooter'], ['fiat500_1966', 1024, 'Borgo: utilitaria'], ['fiat132_abandoned', 512, 'Borgo: auto abbandonata'],
-    ['cafe_set', 512, 'Borgo: tavolino del bar'], ['patio_umbrella', 512, 'Borgo: ombrellone'], ['market_stall', 1024, 'Borgo: bancarella'],
-    ['wine_barrel', 512, 'Borgo: botte'], ['barrels_wood', 512, 'Borgo: barili'], ['amphora_byz', 512, 'Borgo: anfora'], ['pots_old', 512, 'Borgo: vasi'],
-    ['plant_med_flower', 512, 'Borgo: pianta in vaso'], ['geranium', 512, 'Borgo: gerani'], ['bench_aged', 512, 'Borgo: panchina'],
-    ['street_lamp', 512, 'Borgo: lampione'], ['bicycle_rusty', 512, 'Borgo: bicicletta'], ['well_bucket', 512, 'Borgo: pozzo'],
-    ['laundry_line', 512, 'Borgo: panni stesi'], ['cypress', 1024, 'Borgo: cipresso', 0.45], ['crates_bumstrum', 512, 'Borgo e Villette: casse'],
+    ['vespa_worn', 512, 'Borgo: scooter'], ['fiat500_1966', 1024, 'Borgo: utilitaria'], ['fiat132_abandoned', 512, 'Borgo: auto abbandonata', 0.5],
+    ['patio_umbrella', 512, 'Borgo: ombrellone'], ['market_stall', 1024, 'Borgo: bancarella'],
+    ['wine_barrel', 512, 'Borgo: botte', 0.5], ['barrels_wood', 512, 'Borgo: barili', 0.5], ['amphora_byz', 512, 'Borgo: anfora'], ['pots_old', 512, 'Borgo: vasi', 0.3],
+    ['plant_med_flower', 512, 'Borgo: pianta in vaso'], ['geranium', 512, 'Borgo: gerani'], ['bench_aged', 512, 'Borgo: panchina', 0.2],
+    ['street_lamp', 512, 'Borgo: lampione', 0.3], ['bicycle_rusty', 512, 'Borgo: bicicletta', 0.3], ['well_bucket', 512, 'Borgo: pozzo', 0.5],
+    ['laundry_line', 512, 'Borgo: panni stesi', 0.3], ['cypress', 1024, 'Borgo: cipresso', 0.45], ['crates_bumstrum', 512, 'Borgo e Villette: casse'],
     ['wooden_boxes', 512, 'Borgo: cassette di legno'], ['floor_sign', 512, 'Borgo: cavalletto del bar'],
   ].map(([slug, tex, use, simplify]) => ({ id: 'p_' + slug, src: 'props/' + slug, tex, use, prop: true, ...(simplify ? { simplify } : {}) })),
+  // Borgo café set without its round display platform
+  { id: 'p_cafe_set', src: 'props/cafe_set', tex: 512, use: 'Borgo: tavolino del bar', prop: true, drop: /^place$/, simplify: 0.35 },
 ];
 
 const args = process.argv.slice(2);
