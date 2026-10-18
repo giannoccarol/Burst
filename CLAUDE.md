@@ -57,6 +57,7 @@ Nessun bundler e nessun npm. `build.py` concatena `src/*.js` **in ordine alfabet
 | `04d_props.js` | Case e oggetti del borgo (casse, barili, lampioni, tavolini, bancarelle, alberi, 500, Vespa…) |
 | `04e_map.js`, `04f_mapbuild.js` | Il Borgo: metà A + copia ruotata di 180° (simmetria centrale) + chiesa, palazzo e fontana unici; spawn, hardpoint, basi CTF; sfondo collinare |
 | `04h_villette.js` | Mappa Villette: metà A (casa gialla a nord, cortili, metà strada) + copia ruotata con scambio materiali (casa verde); pezzi unici in strada (pick-up, scuolabus percorribile, furgone con cassone aperto, cartello "Abitanti" dinamico); sfondo desertico (`buildDesert`). Helper `vl*`: `vlWall`/`vlCut` (muri a due pelli con aperture anche sovrapposte), `vlLocal` (telaio locale a 90°), `vlCat` (oggetti del catalogo nella mappa), recinzioni |
+| `04j_mapprops.js` | `MapProps`: oggetti GLB nelle mappe integrate (`assets/p_<slug>.glb`, registri `PROP_GLB_BORGO` in `04d_props.js` e `PROP_GLB_VILLETTE` in `04h_villette.js`), normalizzati (`fit`, `rot`, fronte = +x locale) e fusi per materiale |
 | `04i_maps.js` | `BUILTIN_MAPS` (id → nome, sottotitolo, preset ambiente, ombre, `load`), `builtinMap(id)`, `mapLabel(id)` |
 | `04g_catalog.js` | Editor: 83 materiali `EDIT_MATS` in 10 gruppi e catalogo `CATALOG` di 58 elementi (11 forme, 37 oggetti, 10 di gioco), `buildObject`, `addObjCollision` |
 | `05_render.js` | `R`: renderer, ombre, cielo→cubemap→PMREM, preset ambiente `ENV_PRESETS` con `R.applyEnv(nome)` (incluso `deserto` per Villette), post-processing per qualità ≥ 2, qualità automatica |
@@ -105,6 +106,8 @@ Nessun bundler e nessun npm. `build.py` concatena `src/*.js` **in ordine alfabet
 
 ## Mappe integrate
 
+- Oggetti GLB (`MapProps`): `put(ctx, id, x, y, z, rot)` sostituisce un oggetto procedurale (ritorna false se il file non è caricato: il chiamante disegna la versione procedurale), `add(...)` aggiunge un oggetto nuovo. Le **collisioni restano nel codice delle mappe** (uguali per tutti i client anche senza file). Le posizioni di `ctx.glb` della metà A vanno specchiate (`MapProps.mirrored`), le mappe restituiscono `props` (e lo sfondo `backdrop.props`, senza ombre). I file si precaricano con la mappa (`MapProps.preload`); nel menu la mappa si ricostruisce quando arrivano (`Game.upgradeMapProps`). Sorgenti e licenze in `assets/src/props/manifest.json` (non nel repo), pipeline in `tools/build_assets.mjs` (voci `p_<slug>`), crediti automatici. Controllo visivo: `test/scripts/props_lineup.js` (freccia rossa = fronte).
+
 - Registro in `04i_maps.js`: `Game.loadMap(id)` usa `BUILTIN_MAPS[id].load(holder)` (ritorna `{ map, backdrop, info }`), `switchMap` riconosce gli id integrati; tutto il resto è una mappa custom. Il menu ha i chip della mappa sopra le modalità (`HUD.pickMap`, salvata in `store('map')`), usati da Gioca, Allenamento e Crea stanza; Gioca rapido entra solo in stanze con la stessa modalità **e** mappa, e apre `<mappa>-<modalità>`.
 - Villette (`VL.bounds` ±28 m): strada est-ovest a z = 0, case a z ∈ [-20, -12] (A) e specchiata (B). Piano terra a 0,3 m, primo piano a 3,4, gronda a 6,4; scala lungo il muro di fondo con pedata 0,4 (pendenza < 0,5 per cella: i bot la percorrono senza "salti"). Tetti del garage (3,45) raggiungibili da casse impilate e dalle finestre del primo piano; finestre aperte con vetro finto senza collisioni.
 - Per la navigazione dei bot (celle da 1 m centrate su k+0,5) porte e varchi delle recinzioni devono essere larghi ≥ 1,2 m e centrati su coordinate k+0,5.
@@ -146,6 +149,10 @@ Richiesta dell'utente: un editor e creatore di mappe con **tantissimo materiale*
   5. prestazioni su mappe grandi e layout stretto (sotto 760 px il pannello destro è nascosto).
 
 ## Lezioni imparate
+
+- Prestazioni (analisi del 18/10/2026, `test/profile.py`): misurare con la GPU giusta. Il portatile dell'utente ha Intel Arc integrata + NVIDIA RTX 500: Chromium usa l'Intel salvo `__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json`. Sull'Intel è il GPU a limitare (Medio ok, Alto al limite); sulla NVIDIA Ultra 1080p sta a 60 fps con ~8 ms di GPU e ~10 ms di CPU (render). Un container Docker di scraping sulla macchina (gmaps) carica la CPU e rende rumorose le misure.
+- Il warmup deve compilare per il bersaglio del composer (lineare, senza tone mapping), non per il canvas; le ombre si disegnano una volta per fotogramma (`shadowMap.autoUpdate = false` + `needsUpdate` in `R.render`), gli scheletri si aggiornano una volta per fotogramma (patch di `Skeleton.update`), il viewmodel usa copie proprie dei materiali (un materiale condiviso tra scena e viewmodel ricalcola il programma a ogni draw), il BRDF salta le luci che non contribuiscono.
+- `test/profile.py` riporta tempo GPU (timer query), programmi compilati durante il campione (`progNew` con il diff della chiave), fotogrammi lenti con update/render; `--bench`, `--gfx`, `--callers`, `--shot`. `#...&menu=N` resta N secondi nel menu prima di partire (come un giocatore vero). `test/shot.py` fa screenshot a piena qualità con JS e viste.
 
 - SwiftShader è lentissimo nella scena di gioco (anche oltre 1 s per frame): per i test usare `lowres`, `noshadow`, `norender`.
 - Le schede in background vengono rallentate: `run.py` passa i flag anti-throttling e la build `fast` usa `timerLoop`.
