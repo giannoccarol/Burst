@@ -71,7 +71,13 @@ class Viewmodel {
   ownMaterials(m) {
     const cache = this._mats || (this._mats = new Map());
     const own = (mt) => { if (!mt) return mt; let c = cache.get(mt); if (!c) { c = mt.clone(); cache.set(mt, c); cache.set(c, c); } return c; };
-    m.root.traverse((o) => { if (o.isMesh || o.isSprite) o.material = Array.isArray(o.material) ? o.material.map(own) : own(o.material); });
+    m.root.traverse((o) => {
+      if (!o.isMesh && !o.isSprite) return;
+      o.material = Array.isArray(o.material) ? o.material.map(own) : own(o.material);
+      // arm meshes are open tubes (sleeves, gloves): with back faces culled, guns that borrow another rig's
+      // arms showed through the open sleeve end. Both sides drawn, the inside of the sleeve reads as cloth.
+      if (o.isSkinnedMesh) for (const mt of [].concat(o.material)) mt.side = THREE.DoubleSide;
+    });
     if (m.bandMat) m.bandMat = own(m.bandMat);
   }
   upgrade(id) {

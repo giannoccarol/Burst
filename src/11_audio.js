@@ -254,6 +254,13 @@ const SFX = {
     this.tone(g, now + 0.25, 0.15, 58, 38, 'sine', 0.7, 0.004);
     this._hbT = now + lerp(1.05, 0.62, level);
   },
+  // match start: two soft, short notes (the church bell it replaced was long and loud)
+  matchStart() {
+    if (!this.ok) return;
+    const t = this.ctx.currentTime, out = this.out(null, 0.16, 1, 0.25);
+    this.tone(out, t, 0.16, 660, 660, 'triangle', 0.5, 0.01);
+    this.tone(out, t + 0.12, 0.28, 990, 990, 'triangle', 0.45, 0.01);
+  },
   ui() { if (!this.ok) return; const t = this.ctx.currentTime, out = this.out(null, 0.18, 1, 0); this.tone(out, t, 0.04, 1300, 1100, 'triangle', 0.4); },
   beep(hi) { if (!this.ok) return; const t = this.ctx.currentTime, out = this.out(null, 0.3, 1, 0.1); this.tone(out, t, hi ? 0.35 : 0.14, hi ? 1320 : 880, hi ? 1320 : 880, 'sine', 0.4); },
   objective(good) {

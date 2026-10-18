@@ -33,7 +33,7 @@ const GUN_MODELS = {
   smg: {
     file: 'w_smg.glb', rig: true, node: 'smg45', rot: [0, 180, 0], scale: 0.0084,
     grip: [0, -2.5, 0.4], muzzle: [0, 7.9, 40.6], sight: [0, 14.0, -1], fore: [0, -1, 29.8], eject: [-2.2, 7, 15],
-    eye: 0.11, hip: [0.15, -0.21, -0.35], flash: 0.1,
+    eye: 0.19, hip: [0.15, -0.21, -0.35], flash: 0.1,
     segs: { idle: 0.24, fire: [0, 0.2], reload: [2.7, 4.3], reloadEmpty: [0.27, 2.68], draw: [4.7, 5.87] },
     tp: [0.14, 0.03, 0.24],
   },

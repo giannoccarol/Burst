@@ -119,6 +119,24 @@ const Game = {
     if (this.me) this.me.mover.world = this.world;
     for (const b of this.bots) b.mover.world = this.world;
     Nav.built = false;
+    this.orientSpawns();
+  },
+  // spawns facing a wall a step away (yard spawns aimed at the map centre, rooms) felt like being stuck
+  // inside the house: turn each one to the open direction closest to its authored yaw
+  orientSpawns() {
+    const W = this.world, sp = (this.mapInfo && this.mapInfo.spawns) || [];
+    const free = (s, a) => { const h = W.raycast(s.x, s.y + 1.6, s.z, -Math.sin(a), 0, -Math.cos(a), 30); return h ? h.t : 30; };
+    for (const s of sp) {
+      if (s.yaw == null || free(s, s.yaw) >= 6) continue;
+      let best = s.yaw, bestScore = -1e9;
+      for (let k = 0; k < 24; k++) {
+        const a = s.yaw + (k / 24) * TAU, d = free(s, a);
+        const turn = Math.abs(Math.atan2(Math.sin(a - s.yaw), Math.cos(a - s.yaw)));
+        const score = Math.min(d, 14) - turn * 2.2;
+        if (score > bestScore) { bestScore = score; best = a; }
+      }
+      s.yaw = Math.atan2(Math.sin(best), Math.cos(best));
+    }
   },
   // rebuild a built-in map once the GLB props it drew procedurally have arrived (never during a match)
   async upgradeMapProps(ms) {
@@ -471,7 +489,7 @@ const Game = {
     HUD.banner(mode.name, mode.desc, null, 4, this.mapInfo ? this.mapInfo.name : '');
     if (!first || !me.alive) { me.alive = false; me.respawnT = first ? 0.2 : 0.8; }
     if (this.isHost()) for (const b of this.bots) { b.stats = { k: 0, d: 0, a: 0, sc: 0, lvl: 0 }; b.die(null, true); b.respawnT = rnd(0.5, 1.5); }
-    SFX.bell(new THREE.Vector3(11, 20, -43));
+    SFX.matchStart();
   },
   onMatchEnd() {
     Progress.onMatchEnd(this.didWin());

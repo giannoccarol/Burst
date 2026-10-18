@@ -6,7 +6,7 @@ const WEAPONS = {
   sniper: { name: 'Falco .308', type: 'bolt', dmg: 100, head: 1.5, rpm: 52, mag: 5, reload: 1.84, spread: { hip: 0.10, ads: 0.0, move: 0.05, air: 0.12, shot: 0, max: 0.2 }, recoil: { p: 0.07, y: 0.012 }, adsTime: 0.13, zoom: 3.8, scope: true, range: [200, 300, 1], speed: 1.0, bolt: 0.85, swap: 0.5, kill: 'Falco' },
   smg: { name: 'Vespa 9', type: 'auto', dmg: 15, head: 1.5, rpm: 880, mag: 32, reload: 1.12, spread: { hip: 0.026, ads: 0.009, move: 0.012, air: 0.04, shot: 0.004, max: 0.07 }, recoil: { p: 0.0075, y: 0.005 }, adsTime: 0.12, zoom: 1.25, range: [14, 40, 0.6], speed: 1.06, swap: 0.35, kill: 'Vespa' },
   lmg: { name: 'Martello', type: 'auto', dmg: 22, head: 1.5, rpm: 640, mag: 80, reload: 2.88, spread: { hip: 0.05, ads: 0.011, move: 0.03, air: 0.08, shot: 0.003, max: 0.1 }, recoil: { p: 0.0105, y: 0.007 }, adsTime: 0.26, zoom: 1.3, range: [35, 80, 0.7], speed: 0.9, swap: 0.6, kill: 'Martello' },
-  shotgun: { name: 'Pompa 12', type: 'pump', dmg: 13, pellets: 9, head: 1.3, rpm: 72, mag: 6, reload: 0.38, shells: true, spread: { hip: 0.085, ads: 0.062, move: 0.01, air: 0.02, shot: 0, max: 0.1 }, recoil: { p: 0.055, y: 0.012 }, adsTime: 0.15, zoom: 1.15, range: [7, 22, 0.25], speed: 1.0, swap: 0.45, kill: 'Pompa 12' },
+  shotgun: { name: 'Pompa 12', type: 'pump', dmg: 16, pellets: 10, head: 1.3, rpm: 76, mag: 6, reload: 0.38, shells: true, spread: { hip: 0.058, ads: 0.044, move: 0.01, air: 0.02, shot: 0, max: 0.1 }, recoil: { p: 0.055, y: 0.012 }, adsTime: 0.15, zoom: 1.15, range: [10, 28, 0.3], speed: 1.0, swap: 0.45, kill: 'Pompa 12' },
   revolver: { name: 'Magnum .44', type: 'semi', dmg: 48, head: 1.85, rpm: 140, mag: 6, reload: 1.52, spread: { hip: 0.016, ads: 0.0015, move: 0.02, air: 0.06, shot: 0.012, max: 0.06 }, recoil: { p: 0.048, y: 0.006 }, adsTime: 0.15, zoom: 1.3, range: [30, 65, 0.75], speed: 1.05, swap: 0.35, kill: 'Magnum' },
   dmr: { name: 'Sparviero 7.62', type: 'semi', dmg: 38, head: 1.8, rpm: 320, mag: 12, reload: 1.6, spread: { hip: 0.045, ads: 0.0012, move: 0.025, air: 0.08, shot: 0.004, max: 0.08 }, recoil: { p: 0.022, y: 0.004 }, adsTime: 0.16, zoom: 2.4, scope: true, range: [60, 120, 0.85], speed: 1.0, swap: 0.5, kill: 'Sparviero' },
   rocket: { name: 'Lanciarazzi R7', type: 'rocket', dmg: 110, radius: 5.0, rpm: 75, mag: 2, reload: 1.76, projSpeed: 34, spread: { hip: 0.008, ads: 0.0, move: 0.0, air: 0.0, shot: 0, max: 0.01 }, recoil: { p: 0.05, y: 0.004 }, adsTime: 0.2, zoom: 1.25, speed: 0.95, swap: 0.6, selfMult: 0.45, knock: 14, kill: 'Lanciarazzi' },
@@ -22,8 +22,8 @@ const WEAPONS = {
   mac10: { name: 'Zanzara', cat: 'smg', proc: 'smg', type: 'auto', dmg: 13, head: 1.45, rpm: 1050, mag: 30, reload: 1.04, spread: { hip: 0.03, ads: 0.014, move: 0.012, air: 0.04, shot: 0.005, max: 0.08 }, recoil: { p: 0.0075, y: 0.0065 }, adsTime: 0.1, zoom: 1.15, range: [10, 30, 0.55], speed: 1.1, swap: 0.3, kill: 'Zanzara' },
   pkm: { name: 'Incudine', cat: 'lmg', proc: 'lmg', type: 'auto', dmg: 26, head: 1.5, rpm: 600, mag: 100, reload: 3.2, spread: { hip: 0.055, ads: 0.012, move: 0.032, air: 0.08, shot: 0.0035, max: 0.11 }, recoil: { p: 0.0125, y: 0.0075 }, adsTime: 0.28, zoom: 1.3, range: [40, 90, 0.72], speed: 0.87, swap: 0.65, kill: 'Incudine' },
   lewis: { name: 'Tamburo', cat: 'lmg', proc: 'lmg', type: 'auto', dmg: 28, head: 1.5, rpm: 500, mag: 47, reload: 2.56, spread: { hip: 0.05, ads: 0.01, move: 0.03, air: 0.08, shot: 0.003, max: 0.1 }, recoil: { p: 0.0115, y: 0.006 }, adsTime: 0.26, zoom: 1.3, range: [40, 90, 0.72], speed: 0.9, swap: 0.6, kill: 'Tamburo' },
-  dbarrel: { name: 'Lupara', cat: 'shotgun', proc: 'shotgun', type: 'semi', dmg: 14, pellets: 10, head: 1.3, rpm: 240, mag: 2, reload: 1.6, spread: { hip: 0.09, ads: 0.07, move: 0.01, air: 0.02, shot: 0, max: 0.1 }, recoil: { p: 0.06, y: 0.014 }, adsTime: 0.14, zoom: 1.12, range: [7, 20, 0.25], speed: 1.03, swap: 0.4, kill: 'Lupara' },
-  autosg: { name: 'Tempesta 12', cat: 'shotgun', proc: 'shotgun', type: 'semi', dmg: 11, pellets: 8, head: 1.3, rpm: 220, mag: 7, reload: 0.36, shells: true, spread: { hip: 0.08, ads: 0.06, move: 0.01, air: 0.02, shot: 0.006, max: 0.1 }, recoil: { p: 0.04, y: 0.01 }, adsTime: 0.15, zoom: 1.15, range: [8, 24, 0.25], speed: 0.99, swap: 0.45, kill: 'Tempesta' },
+  dbarrel: { name: 'Lupara', cat: 'shotgun', proc: 'shotgun', type: 'semi', dmg: 18, pellets: 10, head: 1.3, rpm: 240, mag: 2, reload: 1.6, spread: { hip: 0.066, ads: 0.052, move: 0.01, air: 0.02, shot: 0, max: 0.1 }, recoil: { p: 0.06, y: 0.014 }, adsTime: 0.14, zoom: 1.12, range: [8, 22, 0.25], speed: 1.03, swap: 0.4, kill: 'Lupara' },
+  autosg: { name: 'Tempesta 12', cat: 'shotgun', proc: 'shotgun', type: 'semi', dmg: 12, pellets: 9, head: 1.3, rpm: 220, mag: 7, reload: 0.36, shells: true, spread: { hip: 0.064, ads: 0.048, move: 0.01, air: 0.02, shot: 0.006, max: 0.1 }, recoil: { p: 0.04, y: 0.01 }, adsTime: 0.15, zoom: 1.15, range: [9, 25, 0.28], speed: 0.99, swap: 0.45, kill: 'Tempesta' },
   barrett: { name: 'Aquila .50', cat: 'sniper', proc: 'sniper', type: 'bolt', dmg: 130, head: 1.5, rpm: 40, mag: 5, reload: 2.4, spread: { hip: 0.12, ads: 0.0, move: 0.06, air: 0.14, shot: 0, max: 0.22 }, recoil: { p: 0.09, y: 0.015 }, adsTime: 0.16, zoom: 4.5, scope: true, range: [250, 350, 1], speed: 0.9, bolt: 1.0, swap: 0.6, kill: 'Aquila' },
   kar98: { name: 'Gufo 98', cat: 'sniper', proc: 'sniper', type: 'bolt', dmg: 100, head: 1.6, rpm: 50, mag: 5, reload: 1.92, spread: { hip: 0.09, ads: 0.0, move: 0.05, air: 0.12, shot: 0, max: 0.2 }, recoil: { p: 0.065, y: 0.012 }, adsTime: 0.13, zoom: 3.4, scope: true, range: [180, 280, 1], speed: 1.0, bolt: 0.9, swap: 0.5, kill: 'Gufo' },
   svd: { name: 'Nibbio 40', cat: 'marksman', proc: 'dmr', type: 'semi', dmg: 40, head: 1.8, rpm: 280, mag: 10, reload: 1.68, spread: { hip: 0.05, ads: 0.0012, move: 0.026, air: 0.08, shot: 0.005, max: 0.085 }, recoil: { p: 0.025, y: 0.005 }, adsTime: 0.16, zoom: 2.6, scope: true, range: [60, 120, 0.85], speed: 0.99, swap: 0.5, kill: 'Nibbio' },
@@ -146,9 +146,12 @@ function gunModel(id) {
     out.muzzle.position.set(0, 0.06, -0.37);
     add(g, rb(0.03, 0.1, 0.036, 0.008), M.polymer, 0, -0.035, 0.045, 0.22);
     add(g, rb(0.028, 0.09, 0.032, 0.008), M.polymer, 0, -0.025, -0.22, 0.05);
-    // compact red dot
-    add(g, rb(0.026, 0.026, 0.05, 0.006), M.polymer, 0, 0.115, -0.06);
-    add(g, new THREE.PlaneGeometry(0.02, 0.018), M.lens, 0, 0.12, -0.0855);
+    // compact red dot: an open tube (a solid housing hid the target when aiming)
+    add(g, rb(0.03, 0.008, 0.05, 0.002), M.polymer, 0, 0.104, -0.06);
+    add(g, rb(0.004, 0.03, 0.05, 0.001), M.polymer, 0.014, 0.12, -0.06);
+    add(g, rb(0.004, 0.03, 0.05, 0.001), M.polymer, -0.014, 0.12, -0.06);
+    add(g, rb(0.03, 0.004, 0.05, 0.001), M.polymer, 0, 0.136, -0.06);
+    add(g, new THREE.PlaneGeometry(0.024, 0.026), M.lens, 0, 0.12, -0.0855);
     add(g, new THREE.CircleGeometry(0.0011, 10), M.dot, 0, 0.12, -0.085);
     out.sight = { y: 0.12, z: -0.035 }; out.eye = 0.13;
     // folding wire stock
@@ -167,10 +170,11 @@ function gunModel(id) {
     add(g, cyl(0.012, 0.011, 0.42), M.metal, 0, 0.055, -0.62);
     add(g, cyl(0.018, 0.015, 0.07), M.metal, 0, 0.055, -0.84);
     out.muzzle.position.set(0, 0.055, -0.88);
-    add(g, rb(0.006, 0.05, 0.012, 0.002), M.metal, 0, 0.09, -0.8);
-    add(g, rb(0.026, 0.03, 0.03, 0.004), M.metal, 0, 0.135, 0.06);
-    add(g, rb(0.004, 0.012, 0.004, 0.001), M.metal, 0, 0.155, 0.06);
-    out.sight = { y: 0.155, z: 0.06 }; out.eye = 0.2;
+    // front post up to the line of sight; open rear notch (two ears) instead of a solid block
+    add(g, rb(0.004, 0.075, 0.008, 0.001), M.metal, 0, 0.105, -0.8);
+    add(g, rb(0.03, 0.012, 0.03, 0.003), M.metal, 0, 0.127, 0.06);
+    for (const s of [-1, 1]) add(g, rb(0.008, 0.026, 0.02, 0.002), M.metal, s * 0.011, 0.144, 0.06);
+    out.sight = { y: 0.142, z: 0.06 }; out.eye = 0.24;
     add(g, rb(0.05, 0.08, 0.22, 0.012), M.polymer, 0, 0.04, 0.24);
     add(g, rb(0.032, 0.1, 0.04, 0.008), M.polymer, 0, -0.04, 0.07, 0.25);
     add(g, cyl(0.005, 0.005, 0.2), M.metal, 0.015, 0.02, -0.5);
