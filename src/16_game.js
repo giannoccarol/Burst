@@ -80,6 +80,7 @@ const Game = {
     HUD.loading(null);
     HUD.showMenu(true);
     this.last = performance.now();
+    setTimeout(() => { if (this.state === 'menu') this.warmup({ bg: true }); }, 1200);
     requestAnimationFrame((t) => this.loop(t));
   },
   loadMap(id, def) {
@@ -208,6 +209,7 @@ const Game = {
     if (!offline) Net.setLobby({ rm: roomName, n: this.nick, md: this.roomCfg.mode, mp: this.mapId, hn: 0 });
     // wait for the room to answer so we follow an existing host instead of starting our own match
     if (!offline) await this.settleRoom();
+    await this.warmup();
     HUD.connecting(false);
     this.state = 'playing';
     HUD.showHUD(true);
@@ -231,6 +233,54 @@ const Game = {
       if (el > NET_CFG.settleMax) break;
     }
     Net.ready = true;
+  },
+  // Compile shaders and upload textures for everything a match can show (every soldier variant, every
+  // weapon in first and third person, name tags) while the "Entro…" overlay is up. First-use compiles
+  // during play were freezing frames for 0.1–1 s (heavy PCSS/lighting shaders). Time-boxed, never throws.
+  // bg: run quietly from the menu right after boot (long download allowance); otherwise it finishes
+  // what is missing before a match with a short wait. Objects sit under the ground: invisible, but still
+  // drawn by the camera and the shadow pass, so every program variant gets built.
+  warmup(opts = {}) {
+    if (this._warming) return this._warming.then(() => (opts.bg || this._warmMap === this.mapId ? null : this.warmup(opts)));
+    if (!opts.bg && this._warmMap === this.mapId) return Promise.resolve();
+    this._warming = this._warmup(opts).finally(() => { this._warming = null; });
+    return this._warming;
+  },
+  async _warmup(opts) {
+    if (window.__RAF_TEST && window.__RAF_TEST.norender) return;
+    const t0 = performance.now(), mapAt = this.mapId;
+    try {
+      const gunIds = WEAPON_IDS.filter((id) => GunModels.filesFor(id).length);
+      const files = [...new Set([...Object.values(SOLDIERS).map((s) => s.file), ...gunIds.flatMap((id) => GunModels.filesFor(id))])];
+      await Assets.preload(files, opts.bg ? null : (p) => HUD.connecting(true, 'Preparo i modelli… ' + Math.round(p * 100) + '%'), opts.bg ? 30000 : 4000);
+      const cam = R.camera, grp = new THREE.Group();
+      const vars = Object.keys(SOLDIERS), n = Math.max(vars.length, gunIds.length);
+      for (let i = 0; i < n; i++) {
+        const av = new Avatar({ variant: vars[i % vars.length] });
+        if (gunIds.length) av.setWeapon(gunIds[i % gunIds.length]);
+        if (i === 0) av.setNameTag('·', '#ffffff');
+        av.update(1 / 60, { yaw: 0, pitch: 0, vx: 0, vz: 0, crouch: false, slide: false, grounded: true });
+        av.root.position.set(((i % 5) - 2) * 0.8, -3.2, Math.floor(i / 5) * 0.8);
+        grp.add(av.root);
+      }
+      R.scene.add(grp);
+      // first-person models: compile them with the viewmodel scene's own lights
+      const vm = this.vm, shown = [];
+      for (const id of gunIds) { const m = vm.get(id); if (m && m.root && !m.root.visible) { m.root.visible = true; shown.push(m.root); } }
+      const vmVis = R.vmScene.visible; R.vmScene.visible = true;
+      const upload = (root) => root.traverse((o) => { const ms = o.material ? (Array.isArray(o.material) ? o.material : [o.material]) : []; for (const mt of ms) for (const k of ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'aoMap', 'emissiveMap', 'alphaMap']) if (mt[k] && mt[k].isTexture) R.renderer.initTexture(mt[k]); });
+      upload(grp); upload(R.vmScene);
+      if (R.renderer.compileAsync) { await R.renderer.compileAsync(R.scene, cam); await R.renderer.compileAsync(R.vmScene, R.vmCamera); }
+      else { R.renderer.compile(R.scene, cam); R.renderer.compile(R.vmScene, R.vmCamera); }
+      // a few real frames so shadow/depth variants get built too
+      for (let i = 0; i < 3; i++) await nextFrame();
+      R.scene.remove(grp);
+      for (const r of shown) r.visible = false;
+      if (vm.m) vm.m.root.visible = true;
+      R.vmScene.visible = vmVis;
+      if (Assets.enabled() && files.every((f) => Assets.peek(f) || Assets.failed(f))) this._warmMap = mapAt;
+    } catch (e) { console.warn('[warmup]', e); }
+    this.warmMs = Math.round(performance.now() - t0);
   },
   requestLock() {
     if (isTouchDevice()) return;

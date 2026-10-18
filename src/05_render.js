@@ -239,6 +239,9 @@ const R = {
     // MSAA on the default framebuffer only matters without post-processing
     this.ctxAA = c.aa > 0 && !this.wantsComposer(c);
     const renderer = new THREE.WebGLRenderer({ antialias: this.ctxAA, powerPreference: 'high-performance', stencil: false });
+    // synchronous shader-error checks (getProgramInfoLog/LINK_STATUS) stall the frame on every new program;
+    // keep them in tests only, so drivers can compile in parallel (KHR_parallel_shader_compile)
+    renderer.debug.checkShaderErrors = !!window.__RAF_TEST;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 0.95;
