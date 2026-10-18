@@ -1,0 +1,1 @@
+(() => { const G = window.RAFFICA.Game, N = window.RAFFICA.Net; return { st: G.state, host: G.isHost(), peers: N.peers ? N.peers.size : -1, ents: G.ents.size, bots: G.bots.length, g: G.g && { m: G.g.m, ph: G.g.ph, r: Math.round(G.g.r) }, alive: G.me.alive, rooms: document.querySelectorAll('#rooms2 .room').length }; })()

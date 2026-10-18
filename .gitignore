@@ -1,0 +1,21 @@
+# build output
+dist/
+test/game.html
+test/fast.html
+test/map.html
+test/swatch.html
+test/wview.html
+# screenshots and local tooling
+*.png
+__pycache__/
+node_modules/
+.venv/
+vendor/
+.secrets/
+# downloaded source models (re-download with tools/fetch_all.sh)
+assets/src/
+# generated test pages (only the template is source)
+test/*.html
+!test/tpl.html
+# local assistant/editor state
+.claude/settings.local.json

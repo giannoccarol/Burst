@@ -1,0 +1,283 @@
+[
+  {
+    "id": "w_ar",
+    "use": "Carabina R4 (prima persona, braccia e animazioni)",
+    "title": "fps animated carbine",
+    "author": "DJMaesen",
+    "authorUrl": "https://sketchfab.com/bumstrum",
+    "url": "https://sketchfab.com/3d-models/fps-animated-carbine-62977bb4c53047a185b9f3a0cdf56b87",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
+  },
+  {
+    "id": "w_smg",
+    "use": "Vespa 9 (prima persona, braccia e animazioni)",
+    "title": "fps animated smg",
+    "author": "DJMaesen",
+    "authorUrl": "https://sketchfab.com/bumstrum",
+    "url": "https://sketchfab.com/3d-models/fps-animated-smg-ea3dad7478624495a5a46f40127b0579",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
+  },
+  {
+    "id": "w_revolver",
+    "use": "Magnum .44 (prima persona, braccia e animazioni)",
+    "title": "revolver animated",
+    "author": "DJMaesen",
+    "authorUrl": "https://sketchfab.com/bumstrum",
+    "url": "https://sketchfab.com/3d-models/revolver-animated-a34b6d0ddc774744bc3567d6afc0878f",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
+  },
+  {
+    "id": "w_knife",
+    "use": "Coltello (prima persona, braccia e animazioni)",
+    "title": "knife Animated",
+    "author": "DJMaesen",
+    "authorUrl": "https://sketchfab.com/bumstrum",
+    "url": "https://sketchfab.com/3d-models/knife-animated-f3140db917cc43389c14b5b2536c1dc8",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
+  },
+  {
+    "id": "w_sniper",
+    "use": "Falco .308",
+    "title": "Sniper",
+    "author": "DJMaesen",
+    "authorUrl": "https://sketchfab.com/bumstrum",
+    "url": "https://sketchfab.com/3d-models/sniper-cdefd833b4b5407ba32c53c9e7f50cae",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
+  },
+  {
+    "id": "w_lmg",
+    "use": "Martello",
+    "title": "LMG",
+    "author": "DJMaesen",
+    "authorUrl": "https://sketchfab.com/bumstrum",
+    "url": "https://sketchfab.com/3d-models/lmg-8c24d7374ea64bdab1c30f49c69d5ed8",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
+  },
+  {
+    "id": "w_shotgun",
+    "use": "Pompa 12",
+    "title": "Shotgun",
+    "author": "DJMaesen",
+    "authorUrl": "https://sketchfab.com/bumstrum",
+    "url": "https://sketchfab.com/3d-models/shotgun-2f5b48d9904145a39c1c2fcc6e5579b7",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
+  },
+  {
+    "id": "w_pistol",
+    "use": "P9",
+    "title": "pistol",
+    "author": "DJMaesen",
+    "authorUrl": "https://sketchfab.com/bumstrum",
+    "url": "https://sketchfab.com/3d-models/pistol-3fd71d1398b7425cba55d62fc22e37ec",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice.",
+    "basedOn": {
+      "title": "Beretta M9",
+      "author": "eNse7en",
+      "url": "https://sketchfab.com/3d-models/beretta-m9-348015284eca46fe8e1822508381dfd8",
+      "license": "CC Attribution"
+    }
+  },
+  {
+    "id": "w_dmr",
+    "use": "Sparviero 7.62",
+    "title": "low-poly UAR-10",
+    "author": "D_U",
+    "authorUrl": "https://sketchfab.com/DU1701",
+    "url": "https://sketchfab.com/3d-models/low-poly-uar-10-759c7788575c468d908a59c7a7405c05",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, parti rimosse); posizionato e animato via codice."
+  },
+  {
+    "id": "w_rocket",
+    "use": "Lanciarazzi R7",
+    "title": "RPG-7",
+    "author": "Tactical_Beard",
+    "authorUrl": "https://sketchfab.com/Tactical_Beard",
+    "url": "https://sketchfab.com/3d-models/rpg-7-01c0fa7bb9e0439cac27264b3119a3fd",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
+  },
+  {
+    "id": "w_mp5",
+    "use": "Calabrone 9",
+    "title": "MP5 Submachine Gun",
+    "author": "Rotuma",
+    "authorUrl": "https://sketchfab.com/Rotuma",
+    "url": "https://sketchfab.com/3d-models/mp5-submachine-gun-a73b61932a0e4eecb5db5c63c158aa24",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
+  },
+  {
+    "id": "w_m1911",
+    "use": "Mastino .45",
+    "title": "Pistol cal.45",
+    "author": "DJMaesen",
+    "authorUrl": "https://sketchfab.com/bumstrum",
+    "url": "https://sketchfab.com/3d-models/pistol-cal45-60a0acac2c1a40f8b96ab96c8cbdc7ca",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa); posizionato e animato via codice."
+  },
+  {
+    "id": "soldier_ru",
+    "use": "Soldato, squadra A (bosco digitale)",
+    "title": "Russian Soldier",
+    "author": "doctortex",
+    "authorUrl": "https://sketchfab.com/doctortex",
+    "url": "https://sketchfab.com/3d-models/russian-soldier-e9aa211b67264dc086af1d2f4d4e3d84",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, materiali convertiti); posizionato e animato via codice."
+  },
+  {
+    "id": "soldier_uk",
+    "use": "Soldato, squadra B (deserto DPM)",
+    "title": "British Soldier",
+    "author": "doctortex",
+    "authorUrl": "https://sketchfab.com/doctortex",
+    "url": "https://sketchfab.com/3d-models/british-soldier-38b98a0222ff41acbe9bad7fe31c4b6c",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, materiali convertiti); posizionato e animato via codice."
+  },
+  {
+    "id": "soldier_ua",
+    "use": "Soldato: pixel chiaro",
+    "title": "Ukrainian Soldier",
+    "author": "doctortex",
+    "authorUrl": "https://sketchfab.com/doctortex",
+    "url": "https://sketchfab.com/3d-models/ukrainian-soldier-94f74f6bdd994733a8a40c7ff088e12f",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, materiali convertiti); posizionato e animato via codice."
+  },
+  {
+    "id": "soldier_ua2",
+    "use": "Soldato: pixel chiaro senza maschera",
+    "title": "Ukrainian Soldier",
+    "author": "doctortex",
+    "authorUrl": "https://sketchfab.com/doctortex",
+    "url": "https://sketchfab.com/3d-models/ukrainian-soldier-b5d8f735b24c49f7ab5b9cc21af4b229",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, materiali convertiti); posizionato e animato via codice."
+  },
+  {
+    "id": "soldier_marine_wood",
+    "use": "Soldato: bosco MARPAT",
+    "title": "US Marine",
+    "author": "doctortex",
+    "authorUrl": "https://sketchfab.com/doctortex",
+    "url": "https://sketchfab.com/3d-models/us-marine-3ef17e7c4a854d6996b23bd96c6469f4",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, materiali convertiti); posizionato e animato via codice."
+  },
+  {
+    "id": "soldier_marine_desert",
+    "use": "Soldato: deserto MARPAT",
+    "title": "US Marine",
+    "author": "doctortex",
+    "authorUrl": "https://sketchfab.com/doctortex",
+    "url": "https://sketchfab.com/3d-models/us-marine-c998c2326ef54cd8adac046599d82012",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, materiali convertiti); posizionato e animato via codice."
+  },
+  {
+    "id": "soldier_sniper",
+    "use": "Soldato: tiratore scelto",
+    "title": "Sniper",
+    "author": "doctortex",
+    "authorUrl": "https://sketchfab.com/doctortex",
+    "url": "https://sketchfab.com/3d-models/sniper-e1201dde63a247f7acb232ccaced9270",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, materiali convertiti); posizionato e animato via codice."
+  },
+  {
+    "id": "soldier_desert",
+    "use": "Soldato: deserto pesante",
+    "title": "Soldier",
+    "author": "doctortex",
+    "authorUrl": "https://sketchfab.com/doctortex",
+    "url": "https://sketchfab.com/3d-models/soldier-2efdbacef9ca4d45846e16bebba05e03",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, materiali convertiti); posizionato e animato via codice."
+  },
+  {
+    "id": "soldier_snow",
+    "use": "Soldato: neve",
+    "title": "Soldier",
+    "author": "doctortex",
+    "authorUrl": "https://sketchfab.com/doctortex",
+    "url": "https://sketchfab.com/3d-models/soldier-b3da5a50991d4bf5bc3ff92d066c1871",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, materiali convertiti); posizionato e animato via codice."
+  },
+  {
+    "id": "soldier_marine",
+    "use": "Soldato: mimetica da campo",
+    "title": "US Marine",
+    "author": "doctortex",
+    "authorUrl": "https://sketchfab.com/doctortex",
+    "url": "https://sketchfab.com/3d-models/us-marine-877f59bbf8374ea08c96155c8518f439",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, materiali convertiti); posizionato e animato via codice."
+  },
+  {
+    "id": "soldier_navy",
+    "use": "Soldato: blu marina",
+    "title": "Us Navy",
+    "author": "doctortex",
+    "authorUrl": "https://sketchfab.com/doctortex",
+    "url": "https://sketchfab.com/3d-models/us-navy-afa60cf9541d44a3bc8ffa5d0dbfc4a3",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, materiali convertiti); posizionato e animato via codice."
+  },
+  {
+    "id": "soldier_mechanic",
+    "use": "Soldato: tecnico",
+    "title": "US Navy Mechanic",
+    "author": "doctortex",
+    "authorUrl": "https://sketchfab.com/doctortex",
+    "url": "https://sketchfab.com/3d-models/us-navy-mechanic-e937e93ff2b643f799b67270ed3dbd9d",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, materiali convertiti); posizionato e animato via codice."
+  },
+  {
+    "id": "soldier_swat",
+    "use": "Soldato: squadra speciale",
+    "title": "Swat",
+    "author": "doctortex",
+    "authorUrl": "https://sketchfab.com/doctortex",
+    "url": "https://sketchfab.com/3d-models/swat-d821ff6ab1e4455c8313db4658a56097",
+    "license": "CC Attribution",
+    "licenseUrl": "http://creativecommons.org/licenses/by/4.0/",
+    "modified": "Ottimizzato per il gioco (texture WebP ridimensionate, geometria quantizzata e compressa, materiali convertiti); posizionato e animato via codice."
+  }
+]

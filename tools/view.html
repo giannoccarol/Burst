@@ -1,0 +1,63 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>glb view</title>
+<style>html,body{margin:0;background:#3a3d42;overflow:hidden}#lab{position:fixed;left:6px;top:4px;color:#fff;font:12px monospace;white-space:pre}</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+</head><body><div id="lab"></div>
+<script type="module">
+// Model viewer for calibration screenshots.
+// #file=URL&view=side|top|front|back|iso|cam&t=SECONDS&grid=1&mark=x,y,z;x,y,z&hide=REGEX&only=REGEX
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+const P = Object.fromEntries(location.hash.slice(1).split('&').filter(Boolean).map((kv) => { const i = kv.indexOf('='); return [kv.slice(0, i), decodeURIComponent(kv.slice(i + 1))]; }));
+const W = innerWidth, H = innerHeight;
+const r = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+r.setSize(W, H); r.toneMapping = THREE.ACESFilmicToneMapping; document.body.appendChild(r.domElement);
+const sc = new THREE.Scene();
+sc.environment = new THREE.PMREMGenerator(r).fromScene(new RoomEnvironment(), 0.04).texture;
+const dl = new THREE.DirectionalLight(0xffffff, 1.5); dl.position.set(2, 3, 4); sc.add(dl);
+const ld = new GLTFLoader(); ld.setMeshoptDecoder(MeshoptDecoder);
+const lab = document.getElementById('lab');
+ld.load(P.file, (g) => {
+  const root = g.scene; sc.add(root);
+  if (g.animations.length && P.t != null) {
+    const mx = new THREE.AnimationMixer(root);
+    const a = mx.clipAction(g.animations[+(P.clip || 0)]); a.play(); mx.setTime(+P.t);
+  }
+  root.updateMatrixWorld(true);
+  if (P.frame) { const fn = root.getObjectByName(P.frame); root.applyMatrix4(fn.matrixWorld.clone().invert()); root.updateMatrixWorld(true); }
+  if (P.hide || P.only || P.noskin) root.traverse((o) => { if (o.isMesh) { if (P.noskin && o.isSkinnedMesh) o.visible = false; if (P.hide && new RegExp(P.hide, 'i').test(o.name)) o.visible = false; if (P.only && !new RegExp(P.only, 'i').test(o.name)) o.visible = false; } });
+  const box = new THREE.Box3();
+  root.traverse((o) => { if (o.isMesh && o.visible) { if (o.isSkinnedMesh) { o.computeBoundingBox(); const b = o.boundingBox.clone(); box.union(b.applyMatrix4(o.matrixWorld)); } else box.expandByObject(o); } });
+  if (P.box) { const v = P.box.split(',').map(Number); box.min.set(v[0], v[1], v[2]); box.max.set(v[3], v[4], v[5]); }
+  const c = box.getCenter(new THREE.Vector3()), s = box.getSize(new THREE.Vector3());
+  const hz = P.view === 'side' || P.view === 'left' ? s.z : s.x;
+  if (P.view === 'top') s.y = s.z;
+  const R = (P.ticks ? Math.max(s.y * 0.6, hz * 0.54 * H / W) : Math.max(s.x, s.y, s.z) * 0.6) / +(P.zoom || 1);
+  const cam = P.view === 'cam' ? new THREE.PerspectiveCamera(+(P.fov || 66), W / H, 0.01, 100) : new THREE.OrthographicCamera(-R * W / H, R * W / H, R, -R, -100 * R, 100 * R);
+  const dirs = { side: [1, 0, 0], left: [-1, 0, 0], top: [0, 1, 0.0001], front: [0, 0, 1], back: [0, 0, -1], iso: [1, 0.6, 1], under: [0, -1, 0.0001] };
+  if (P.view === 'cam') { cam.position.set(...(P.pos || '0,0,0').split(',').map(Number)); cam.lookAt(new THREE.Vector3(...(P.look || '0,0,-1').split(',').map(Number))); }
+  else { const d = new THREE.Vector3(...(dirs[P.view || 'side'])).normalize(); cam.position.copy(c).addScaledVector(d, R * 10); cam.lookAt(c); }
+  if (P.grid) { const ax = new THREE.AxesHelper(R); ax.position.copy(c); sc.add(ax); }
+  if (P.mark) for (const m of P.mark.split(';')) { const v = m.split(',').map(Number); const k = new THREE.Mesh(new THREE.SphereGeometry(R * 0.015), new THREE.MeshBasicMaterial({ color: 0xff00ff, depthTest: false })); k.position.set(v[0], v[1], v[2]); k.renderOrder = 9; sc.add(k); }
+  lab.textContent = P.file.split('/').slice(-2).join('/') + ' ' + (P.view || 'side') + (P.t != null ? ' t=' + P.t : '') + '\nbox ' + box.min.toArray().map((x) => x.toFixed(3)) + ' .. ' + box.max.toArray().map((x) => x.toFixed(3));
+  r.render(sc, cam);
+  if (P.ticks && cam.isOrthographicCamera) {
+    // labelled grid in model units: side view -> (z, y), front view -> (x, y)
+    const cv = document.createElement('canvas'); cv.width = W; cv.height = H; cv.style.cssText = 'position:fixed;left:0;top:0';
+    document.body.appendChild(cv);
+    const g = cv.getContext('2d'), st = +P.ticks, ppu = H / (2 * R);
+    const side = P.view === 'side', hc = side ? c.z : c.x;
+    const top = P.view === 'top', vc = top ? c.z : c.y;
+    const toX = (u) => W / 2 + (side ? -(u - hc) : (u - hc)) * ppu, toY = (v) => top ? H / 2 + (v - vc) * ppu : H / 2 - (v - vc) * ppu;
+    g.font = '10px monospace'; g.fillStyle = '#ffeb3b';
+    const span = R * W / H;
+    for (let u = Math.ceil((hc - span) / st) * st; u <= hc + span; u += st) { g.strokeStyle = Math.abs(u) < st / 2 ? 'rgba(255,80,80,.8)' : 'rgba(255,235,59,.25)'; g.beginPath(); g.moveTo(toX(u), 0); g.lineTo(toX(u), H); g.stroke(); if (Math.round(u / st) % 2 === 0) g.fillText(+u.toFixed(4) + '', toX(u) + 2, H - 4); }
+    for (let v = Math.ceil((vc - R) / st) * st; v <= vc + R; v += st) { g.strokeStyle = Math.abs(v) < st / 2 ? 'rgba(255,80,80,.8)' : 'rgba(255,235,59,.25)'; g.beginPath(); g.moveTo(0, toY(v)); g.lineTo(W, toY(v)); g.stroke(); g.fillText(+v.toFixed(4) + '', 2, toY(v) - 2); }
+  }
+  window.__info = { min: box.min.toArray(), max: box.max.toArray(), anims: g.animations.map((a) => [a.name, a.duration]) };
+  if (P.bones) { const bw = {}; root.traverse((o) => { if (new RegExp(P.bones).test(o.name)) bw[o.name] = o.getWorldPosition(new THREE.Vector3()).toArray().map((x) => +x.toFixed(4)); }); window.__info.bones = bw; }
+  window.__done = true;
+}, undefined, (e) => { lab.textContent = 'ERR ' + e; window.__done = true; });
+</script></body></html>

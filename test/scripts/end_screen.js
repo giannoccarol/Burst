@@ -1,0 +1,1 @@
+(() => { const H = window.RAFFICA.HUD, P = window.RAFFICA.Progress; return { endOpen: H.endOpen, winner: document.querySelector('#winner').textContent, brush: document.querySelector('#winbrush').textContent, xp: [...document.querySelectorAll('#endxp span')].map((s) => s.textContent), match: P.match, st: P.data.st, total: P.data.xp }; })()

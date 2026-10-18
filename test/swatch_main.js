@@ -1,0 +1,47 @@
+// Material swatch preview (test harness)
+(async function () {
+  const W = innerWidth, H = innerHeight;
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(W, H); renderer.setPixelRatio(1);
+  renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 0.9;
+  renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  document.body.appendChild(renderer.domElement);
+  TexGen.init(renderer);
+  const t0 = performance.now();
+  makeMaterials(2);
+  const genMs = performance.now() - t0;
+  const scene = new THREE.Scene();
+  const sky = new Sky(); sky.scale.setScalar(5000);
+  const sun = new THREE.Vector3(-0.62, 0.24, 0.55).normalize();
+  Object.assign(sky.material.uniforms, {});
+  sky.material.uniforms.turbidity.value = 6; sky.material.uniforms.rayleigh.value = 1.4;
+  sky.material.uniforms.mieCoefficient.value = 0.006; sky.material.uniforms.mieDirectionalG.value = 0.85;
+  sky.material.uniforms.sunPosition.value.copy(sun);
+  const skyScene = new THREE.Scene(); skyScene.add(sky);
+  const pm = new THREE.PMREMGenerator(renderer);
+  scene.environment = pm.fromScene(skyScene, 0.02).texture;
+  scene.add(sky);
+  const dl = new THREE.DirectionalLight(0xffe2c0, 3.2); dl.position.copy(sun).multiplyScalar(30); dl.castShadow = true;
+  dl.shadow.mapSize.set(2048, 2048); Object.assign(dl.shadow.camera, { left: -12, right: 12, top: 12, bottom: -12 });
+  scene.add(dl);
+  const names = ['cobble', 'slabs', 'plaster_ocra', 'plaster_rosa', 'stone', 'rubble', 'brick', 'roof', 'wood', 'shutter_verde', 'crate', 'metal', 'cotto', 'terrain', 'marble', 'awningRed'];
+  const cols = 4;
+  names.forEach((n, i) => {
+    const m = MAT[n];
+    const g = new THREE.BoxGeometry(2.2, 2.2, 2.2);
+    const uv = g.attributes.uv; for (let k = 0; k < uv.count; k++) uv.setXY(k, uv.getX(k) * 1.1, uv.getY(k) * 1.1);
+    const mesh = new THREE.Mesh(g, m);
+    mesh.position.set((i % cols - 1.5) * 2.9, 1.1 + 0.0, (Math.floor(i / cols) - 1.5) * 2.9);
+    mesh.rotation.y = 0.5;
+    mesh.castShadow = mesh.receiveShadow = true;
+    scene.add(mesh);
+  });
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), MAT.slabs);
+  const guv = ground.geometry.attributes.uv; for (let k = 0; k < guv.count; k++) guv.setXY(k, guv.getX(k) * 12, guv.getY(k) * 12);
+  ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
+  const cam = new THREE.PerspectiveCamera(42, W / H, 0.1, 6000);
+  cam.position.set(6, 9, 13); cam.lookAt(0, 0.6, 0);
+  renderer.render(scene, cam);
+  window.__info = { genMs: Math.round(genMs) };
+  window.__done = true;
+})().catch((e) => { console.error(e); window.__done = true; });

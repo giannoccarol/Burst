@@ -1,0 +1,1 @@
+(() => { const G = window.RAFFICA.Game; const out = {}; for (const id of ['villette', 'borgo', 'villette', 'borgo']) { const t0 = performance.now(); G.loadMap(id); out[id] = (out[id] ? out[id] + '/' : '') + Math.round(performance.now() - t0); } return out; })()

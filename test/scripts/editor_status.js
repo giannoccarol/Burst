@@ -1,0 +1,1 @@
+(() => { const { Editor, Game } = window.RAFFICA; return { active: Editor.active, objs: Editor.objs.length, thumbsLeft: Editor.thumbQ && Editor.thumbQ.length, thumbs: Object.keys(Editor.thumbs).length, empty: Object.entries(Editor.thumbs).filter(([k,v]) => !v).map(([k]) => k), env: Editor.env, fps: Math.round(Game.fps), prof: Game.prof }; })()
