@@ -13,9 +13,9 @@ const QUALITY_NAMES = ['Bassa', 'Media', 'Alta', 'Ultra'];
 //  post 0 off · 1 grading + vignette · 2 cinematic (+ sun shafts + lens flare)
 const GFX_PRESETS = {
   minimo: { n: 'Minimo', scale: 0.6, dpr: 1, shadow: 0, ao: 0, bloom: 0, aa: 0, tex: 0, aniso: 1, dist: 0, bg: 0, fx: 0, refl: 0, post: 0 },
-  basso: { n: 'Basso', scale: 0.85, dpr: 1, shadow: 1, ao: 0, bloom: 0, aa: 1, tex: 1, aniso: 2, dist: 1, bg: 1, fx: 1, refl: 0, post: 0 },
-  medio: { n: 'Medio', scale: 1, dpr: 1.25, shadow: 2, ao: 0, bloom: 0, aa: 1, tex: 1, aniso: 4, dist: 2, bg: 1, fx: 2, refl: 1, post: 0 },
-  alto: { n: 'Alto', scale: 1, dpr: 1.5, shadow: 3, ao: 1, bloom: 1, aa: 1, tex: 2, aniso: 8, dist: 2, bg: 2, fx: 2, refl: 2, post: 1 },
+  basso: { n: 'Basso', scale: 1, dpr: 1.25, shadow: 1, ao: 0, bloom: 0, aa: 1, tex: 1, aniso: 2, dist: 1, bg: 1, fx: 1, refl: 0, post: 0 },
+  medio: { n: 'Medio', scale: 1, dpr: 1.5, shadow: 2, ao: 0, bloom: 0, aa: 1, tex: 1, aniso: 4, dist: 2, bg: 1, fx: 2, refl: 1, post: 0 },
+  alto: { n: 'Alto', scale: 1, dpr: 2, shadow: 3, ao: 1, bloom: 1, aa: 1, tex: 2, aniso: 8, dist: 2, bg: 2, fx: 2, refl: 2, post: 1 },
   ultra: { n: 'Ultra', scale: 1, dpr: 2, shadow: 4, ao: 1, bloom: 1, aa: 1, tex: 3, aniso: 16, dist: 2, bg: 2, fx: 2, refl: 2, post: 1 },
   estremo: { n: 'Estremo', scale: 1, dpr: 2, shadow: 5, ao: 2, bloom: 1, aa: 2, tex: 3, aniso: 16, dist: 2, bg: 2, fx: 2, refl: 2, post: 2 },
 };
@@ -74,7 +74,7 @@ function gfxConfig() {
   cfg.aa = clamp(cfg.aa | 0, 0, 2); cfg.tex = clamp(cfg.tex | 0, 0, 3); cfg.aniso = clamp(cfg.aniso | 0, 1, 16);
   for (const k of ['bloom']) cfg[k] = cfg[k] ? 1 : 0;
   for (const k of ['dist', 'bg', 'fx', 'refl', 'post']) cfg[k] = clamp(cfg[k] | 0, 0, 2);
-  if (id === 'custom') cfg.dpr = cfg.shadow >= 4 || cfg.tex >= 3 ? 2 : cfg.tex >= 2 ? 1.5 : 1.25;
+  if (id === 'custom') cfg.dpr = cfg.shadow >= 3 || cfg.tex >= 2 ? 2 : 1.5;
   // coarse legacy level for the map builders (backdrop detail) and editor textures
   const pid = id === 'auto' ? autoPreset() : id;
   cfg.lq = id === 'custom' ? clamp(cfg.tex, 0, 3) : { minimo: 0, basso: 0, medio: 1, alto: 2, ultra: 3, estremo: 3 }[pid];

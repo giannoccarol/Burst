@@ -880,7 +880,7 @@ const GFX_UI = [
 ];
 const GFX_DESC = {
   minimo: 'Per computer molto deboli e telefoni: niente ombre, risoluzione ridotta.',
-  basso: 'Ombre semplici e antialiasing, risoluzione all\'85%.',
+  basso: 'Ombre semplici e antialiasing, risoluzione piena.',
   medio: 'Il bilanciamento di sempre: ombre nitide su tutta la mappa, nessun effetto aggiuntivo.',
   alto: 'Ombre a cascata vicino al giocatore, occlusione ambientale, bagliore e correzione del colore.',
   ultra: 'Ombre morbide che si induriscono al contatto (PCSS), texture e riflessi al massimo.',
