@@ -213,6 +213,10 @@ float rafSkyVis() {
       '\t\t#else\n' +
       '\t\tdirectLight.color *= ( directLight.visible && receiveShadow && rafCsm.x < 0.5 ) ? ' + vanilla + ' : 1.0;\n' +
       '\t\t#endif');
+    // skip the BRDF for lights that add nothing to this fragment: the zero-intensity cascade carriers,
+    // idle muzzle-flash lights, lamps out of range, the sun in full shadow (same image, far less GPU work)
+    const reCall = 'RE_Direct( directLight, geometryPosition, geometryNormal, geometryViewDir, geometryClearcoatNormal, material, reflectedLight );';
+    C.lights_fragment_begin = C.lights_fragment_begin.split(reCall).join('if ( directLight.visible && any( greaterThan( directLight.color, vec3( 0.0 ) ) ) ) ' + reCall);
     C.lights_fragment_end = '#if defined( USE_SHADOWMAP ) && NUM_DIR_LIGHT_SHADOWS > 2\n{ float rafSV = rafSkyVis();\n' +
       '#if defined( RE_IndirectDiffuse )\n irradiance *= rafSV; iblIrradiance *= rafSV;\n#endif\n' +
       '#if defined( RE_IndirectSpecular )\n radiance *= rafSV; clearcoatRadiance *= rafSV;\n#endif\n}\n#endif\n' + C.lights_fragment_end;
@@ -225,6 +229,18 @@ float rafSkyVis() {
     for (const k in this.U) sh.uniforms[k] = this.U[k];
   },
 };
+
+// skinned meshes: bone matrices (and the bone texture upload) once per frame; three.js redid them on
+// every render call (GTAO's normal pass, previews)
+{
+  const skUpdate = THREE.Skeleton.prototype.update;
+  THREE.Skeleton.prototype.update = function () {
+    const f = R.frameNo || 0;
+    if (this._rafF === f) return;
+    this._rafF = f;
+    skUpdate.call(this);
+  };
+}
 
 const R = {
   q: 1, cfg: null, renderer: null, scene: null, camera: null, vmScene: null, vmCamera: null,
@@ -247,6 +263,9 @@ const R = {
     renderer.toneMappingExposure = 0.95;
     renderer.shadowMap.enabled = !(window.__RAF_TEST && window.__RAF_TEST.noshadow) && c.shadow > 0;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    // shadow maps are drawn once per frame (R.render arms needsUpdate): GTAO's normal pass is a second
+    // scene render and used to redraw the camera-following cascade
+    renderer.shadowMap.autoUpdate = false;
     renderer.setClearColor(0x000000, 1);
     container.appendChild(renderer.domElement);
     renderer.domElement.id = 'gl';
@@ -476,6 +495,7 @@ const R = {
       far.shadow.needsUpdate = true;
       if (this.skyOcc) this.sunSky.shadow.needsUpdate = true;
       scene.background = null;
+      r.shadowMap.needsUpdate = true;
       r.setRenderTarget(this._dummyRT);
       r.render(scene, this._dummyCam);
     } finally {
@@ -696,6 +716,8 @@ const R = {
       this.updateCascades();
       if (this.staticDirty && this.renderer.shadowMap.enabled) this.renderStatic();
     }
+    this.frameNo = (this.frameNo || 0) + 1;
+    this.renderer.shadowMap.needsUpdate = true;
     if (this.composer) {
       if (this.finalPass) {
         const u = this.finalPass.uniforms;

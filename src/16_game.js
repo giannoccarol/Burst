@@ -161,7 +161,7 @@ const Game = {
       if (!(window.__RAF_TEST && window.__RAF_TEST.norender)) R.render(this.time);
       const p2 = performance.now();
       this.prof = this.prof || { upd: 0, ren: 0 };
-      this.prof.upd = this.prof.upd * 0.9 + (p1 - p0) * 0.1; this.prof.ren = this.prof.ren * 0.9 + (p2 - p1) * 0.1;
+      this.prof.u = p1 - p0; this.prof.r = p2 - p1; this.prof.upd = this.prof.upd * 0.9 + (p1 - p0) * 0.1; this.prof.ren = this.prof.ren * 0.9 + (p2 - p1) * 0.1;
     } catch (e) { console.error(e); }
     Input.endFrame();
   },
@@ -270,8 +270,15 @@ const Game = {
       const vmVis = R.vmScene.visible; R.vmScene.visible = true;
       const upload = (root) => root.traverse((o) => { const ms = o.material ? (Array.isArray(o.material) ? o.material : [o.material]) : []; for (const mt of ms) for (const k of ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'aoMap', 'emissiveMap', 'alphaMap']) if (mt[k] && mt[k].isTexture) R.renderer.initTexture(mt[k]); });
       upload(grp); upload(R.vmScene);
-      if (R.renderer.compileAsync) { await R.renderer.compileAsync(R.scene, cam); await R.renderer.compileAsync(R.vmScene, R.vmCamera); }
-      else { R.renderer.compile(R.scene, cam); R.renderer.compile(R.vmScene, R.vmCamera); }
+      // compile for the target the match draws into: with post-processing that is the composer's linear
+      // buffer (no tone mapping, linear output), a different program variant from the canvas one
+      const rr = R.renderer, prevRT = rr.getRenderTarget(), jobs = [];
+      try {
+        rr.setRenderTarget(R.composer ? R.composer.renderTarget1 : null);
+        if (rr.compileAsync) jobs.push(rr.compileAsync(R.scene, cam), rr.compileAsync(R.vmScene, R.vmCamera));
+        else { rr.compile(R.scene, cam); rr.compile(R.vmScene, R.vmCamera); }
+      } finally { rr.setRenderTarget(prevRT); }
+      await Promise.all(jobs);
       // a few real frames so shadow/depth variants get built too
       for (let i = 0; i < 3; i++) await nextFrame();
       R.scene.remove(grp);

@@ -7,6 +7,8 @@ window.__autostart = function () {
   window.__q = q;
   if (q.cls) RAFFICA.Game.chooseClass(+q.cls);
   if (q.map) RAFFICA.Game.pendingMap = q.map;
+  // &menu=N: stay N seconds in the menu first (background warmup, like a real player)
+  if (q.menu && !window.__menuDone) { window.__menuDone = true; setTimeout(window.__autostart, +q.menu * 1000); return; }
   if (q.offline) RAFFICA.Game.playOffline({ bots: +(q.bots || 4), diff: 1, mode: +(q.mode || 0) });
   else if (q.room) RAFFICA.Game.play(q.room, { bots: +(q.bots || 0), diff: 1, mode: +(q.mode || 0) });
 };

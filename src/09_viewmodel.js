@@ -45,7 +45,8 @@ class Viewmodel {
     // ejected shells
     this.shells = [];
     const sg = new THREE.CylinderGeometry(0.0045, 0.0045, 0.022, 8); sg.rotateZ(Math.PI / 2);
-    for (let i = 0; i < 16; i++) { const s = new THREE.Mesh(sg, GUNMAT.brass); s.visible = false; this.scene.add(s); this.shells.push({ m: s, v: new THREE.Vector3(), life: 0, spin: new THREE.Vector3() }); }
+    const brass = GUNMAT.brass.clone();
+    for (let i = 0; i < 16; i++) { const s = new THREE.Mesh(sg, brass); s.visible = false; this.scene.add(s); this.shells.push({ m: s, v: new THREE.Vector3(), life: 0, spin: new THREE.Vector3() }); }
     this.shellIdx = 0;
     this.fireT = 9; this.meleeIdx = 0; this.lastMelee = -1; this.relVariant = null;
   }
@@ -56,6 +57,7 @@ class Viewmodel {
     if (!m) {
       m = GunModels.buildFP(id);
       if (!m) { m = gunModel(id); addArms(m); m.placeholder = true; GunModels.request(id); }
+      this.ownMaterials(m);
       if (m.bandMat) m.bandMat.color.set(this.teamHex);
       m.root.visible = false;
       this.root.add(m.root);
@@ -63,9 +65,19 @@ class Viewmodel {
     }
     return m;
   }
+  // first-person copies of the materials. A material drawn both in the world scene (fog, map lights) and
+  // in the viewmodel scene needs two programs: shared, three.js re-derived the program of every such draw
+  // twice a frame. Copies are cached per source material, so all first-person models share them.
+  ownMaterials(m) {
+    const cache = this._mats || (this._mats = new Map());
+    const own = (mt) => { if (!mt) return mt; let c = cache.get(mt); if (!c) { c = mt.clone(); cache.set(mt, c); cache.set(c, c); } return c; };
+    m.root.traverse((o) => { if (o.isMesh || o.isSprite) o.material = Array.isArray(o.material) ? o.material.map(own) : own(o.material); });
+    if (m.bandMat) m.bandMat = own(m.bandMat);
+  }
   upgrade(id) {
     const old = this.models[id], m = GunModels.buildFP(id);
     if (!m) { if (old) old.placeholder = false; return null; } // broken file: keep the procedural model
+    this.ownMaterials(m);
     if (old) { this.root.remove(old.root); old.root.traverse((o) => { if (o.isMesh && o.geometry) o.geometry.dispose(); }); }
     m.root.visible = false;
     this.root.add(m.root);
