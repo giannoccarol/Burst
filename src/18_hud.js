@@ -269,7 +269,7 @@ const HUD = {
   updatePlayNote() {
     const n = $('#playnote'); if (!n) return;
     let t;
-    if (!Net.online()) t = 'Offline: giochi contro i bot. Il multiplayer si attiva aprendo la pagina da claude.ai.';
+    if (!Net.online()) t = 'Offline (' + this.offlineReason() + '): giochi contro i bot.';
     else {
       const r = this.bestRoom();
       t = r ? 'Entri in ' + r.name + ' con ' + r.names.slice(0, 3).join(', ') + (r.players > 3 ? ' e altri' : '') : 'Nessuna partita di questo tipo: ne apri una e i colleghi la vedono comparire.';
@@ -283,17 +283,29 @@ const HUD = {
     if (r) { Game.pendingMap = typeof r.map === 'string' && r.map.length < 200 ? r.map : null; Game.play(r.name); }
     else { Game.pendingMap = this.selMap; Game.play(this.selMap + '-' + MODES[this.selMode].id, { bots: 4, diff: this.diff, mode: this.selMode }); }
   },
+  offlineReason() {
+    return { page: 'pagina aperta fuori da claude.ai', signin: 'accesso o invito mancante', admit: 'claude.ai non ti fa entrare nella stanza', lost: 'connessione alla stanza persa' }[Net.why] || 'solo bot';
+  },
+  offlineHelp() {
+    switch (Net.why) {
+      case 'signin': return 'claude.ai non ti riconosce come invitato: fai l\'accesso in questo browser e ricarica. Se lo sei già, il tuo account non è dell\'organizzazione di chi ha creato il gioco o hai aperto il link pubblico: chiedi di essere invitato per nome o email dal menu Condividi e apri il link da quell\'account.';
+      case 'admit': return 'Sei autenticato ma claude.ai non ti ammette nella stanza: succede se hai aperto il link pubblico o se il tuo account non è dell\'organizzazione di chi ha creato il gioco. Chiedi di essere invitato per nome o email dal menu Condividi, poi apri il link da quell\'account.';
+      case 'lost': return 'La connessione alla stanza è stata rifiutata o si è interrotta' + (Net.whyCode ? ' (' + String(Net.whyCode).slice(0, 40) + ')' : '') + '. Ricarica la pagina; se resta così, prova senza VPN o con un\'altra rete.';
+      case 'page': return 'Il multiplayer funziona solo aprendo il gioco da claude.ai.';
+      default: return 'Il multiplayer funziona quando la pagina è aperta da claude.ai con l\'accesso alla stanza.';
+    }
+  },
   refreshRooms() {
     const online = Net.online();
     const conn = online && Net.lobbyConnected !== false;
-    const txt = online ? (Net.lobbyConnected === false ? 'Riconnessione…' : 'Online · ' + Math.max(1, Net.lobbyPeers.length) + ' nel menu o in partita') : 'Offline: qui puoi allenarti con i bot';
+    const txt = online ? (Net.lobbyConnected === false ? 'Riconnessione…' : 'Online · ' + Math.max(1, Net.lobbyPeers.length) + ' nel menu o in partita') : 'Offline · ' + this.offlineReason();
     for (const [d, t] of [['#netdot', '#nettxt'], ['#netdot2', '#nettxt2']]) { $(d).classList.toggle('on', conn); $(t).textContent = txt; }
     $('#btn-create').disabled = !online;
     const rooms = online ? Net.listRooms() : [];
     const fill = (box, max) => {
       if (!box) return;
       box.innerHTML = '';
-      if (!online) { box.appendChild(el('div', 'empty', 'Il multiplayer funziona quando la pagina è aperta da claude.ai con l\'accesso alla stanza. Condividi questo artifact con i colleghi e ritrovatevi qui.')); return; }
+      if (!online) { box.appendChild(el('div', 'empty', this.offlineHelp())); return; }
       if (!rooms.length) { box.appendChild(el('div', 'empty', 'Nessuna partita attiva. Premi Gioca per aprirne una: i colleghi la vedranno comparire qui.')); return; }
       for (const r of rooms.slice(0, max)) {
         const b = el('button', 'room'); b.type = 'button';

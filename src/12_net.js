@@ -48,12 +48,17 @@ const Net = {
   peers: new Map(), lobbyPeers: [], seq: 0, events: [], unsubs: [], lobbyUnsubs: [], joinedAt: 0, j: 0,
   nextSend: 0, connected: false, emitter: new Emitter(), offline: true, sendErr: 0, shrink: 0,
   ready: false, away: false, claim: 0, host: null, lastBytes: 0, rejoinN: 0,
+  // why the room is missing, shown in the menu: 'page' (not opened from claude.ai), 'signin' (signed out),
+  // 'admit' (signed in but not admitted: public link, or outside the organisation and not invited),
+  // 'lost' (connection refused or dropped)
+  why: null,
   async init() {
     const C = window.claude;
     if (C && typeof C.use === 'function') {
       try { this.room = await C.use('room'); } catch (e) { this.room = null; }
       try { this.user = await C.use('user'); } catch (e) { this.user = null; }
     }
+    if (!this.room) this.why = !(C && typeof C.use === 'function') ? 'page' : !this.user ? 'signin' : 'admit';
     if (this.user) {
       try { const me = await this.user.me(); this.myName = me.name || ''; this.myColor = me.color || this.myColor; this.myId = me.id; } catch (e) { /* anonymous */ }
     }
@@ -61,8 +66,8 @@ const Net = {
     if (this.room) {
       try {
         this.lobbyUnsubs.push(this.room.onPeers((ch) => { this.lobbyPeers = ch.peers; this.emitter.emit('lobby', ch.peers); }, () => {}));
-        this.lobbyUnsubs.push(this.room.onConnection((c) => { this.lobbyConnected = c; this.emitter.emit('lobbyconn', c); }, () => { this.offline = true; this.emitter.emit('lobbyconn', false); }));
-      } catch (e) { this.offline = true; }
+        this.lobbyUnsubs.push(this.room.onConnection((c) => { this.lobbyConnected = c; this.emitter.emit('lobbyconn', c); }, (e) => { this.offline = true; this.why = 'lost'; this.whyCode = e && e.code; this.emitter.emit('lobbyconn', false); }));
+      } catch (e) { this.offline = true; this.why = 'lost'; }
     }
     // a hidden tab stops its game loop: tell the room right away so a backgrounded
     // host is replaced at once instead of after the stale timeout
